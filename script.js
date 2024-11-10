@@ -43,6 +43,18 @@ let selectedQuestions = [];
 let currentQuestionIndex = 0;
 let correctScore = 0;
 let incorrectScore = 0;
+let userName = "";
+
+// Load leaderboard from localStorage or initialize an empty array
+let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+
+// Ask for the user's name when they first load the page
+function askUserName() {
+    userName = prompt("Please enter your name:");
+    if (!userName) {
+        userName = "Anonymous"; // Default to "Anonymous" if no name is entered
+    }
+}
 
 // Select 10 random unique questions for each round from the question pool
 function selectRandomQuestions() {
@@ -93,18 +105,55 @@ function updateScore() {
     document.getElementById("incorrect-score").innerText = incorrectScore;
 }
 
+// Show final score, save to leaderboard, and display the leaderboard
 function showFinalScore() {
     const questionContainer = document.getElementById("question");
     const optionsContainer = document.getElementById("options");
     const resultContainer = document.getElementById("result");
     const restartButton = document.getElementById("restart-btn");
+    const newUserButton = document.getElementById("new-user-btn");
 
     questionContainer.innerHTML = "Game Over! You've completed all questions.";
     optionsContainer.style.display = "none";
     resultContainer.innerHTML = `<p>Final Score: ${correctScore} Correct, ${incorrectScore} Incorrect</p>`;
+    
+    // Show buttons to play again or start a new user
     restartButton.style.display = "block";
+    newUserButton.style.display = "block";
+
+    // Save the score to the leaderboard
+    saveToLeaderboard();
+
+    // Display the leaderboard
+    displayLeaderboard();
 }
 
+function saveToLeaderboard() {
+    const playerScore = {
+        name: userName,
+        score: correctScore
+    };
+    leaderboard.push(playerScore);
+
+    // Sort leaderboard by score in descending order and keep top 5 scores
+    leaderboard.sort((a, b) => b.score - a.score);
+    leaderboard = leaderboard.slice(0, 5);
+
+    // Save leaderboard to localStorage
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
+
+function displayLeaderboard() {
+    const leaderboardContainer = document.getElementById("leaderboard-container");
+    const leaderboardDiv = document.getElementById("leaderboard");
+
+    leaderboardContainer.style.display = "block";
+    leaderboardDiv.innerHTML = leaderboard.map((entry, index) =>
+        `<p>${index + 1}. ${entry.name}: ${entry.score} points</p>`
+    ).join("");
+}
+
+// Restart game for the same user
 function restartGame() {
     correctScore = 0;
     incorrectScore = 0;
@@ -114,11 +163,28 @@ function restartGame() {
     selectRandomQuestions();
     document.getElementById("options").style.display = "block";
     document.getElementById("restart-btn").style.display = "none";
+    document.getElementById("new-user-btn").style.display = "none";
+    loadQuestion();
+}
+
+// Start a new game for a new user
+function startNewUser() {
+    correctScore = 0;
+    incorrectScore = 0;
+    document.getElementById("correct-score").innerText = correctScore;
+    document.getElementById("incorrect-score").innerText = incorrectScore;
+
+    askUserName(); // Prompt for new user's name
+    selectRandomQuestions();
+    document.getElementById("options").style.display = "block";
+    document.getElementById("restart-btn").style.display = "none";
+    document.getElementById("new-user-btn").style.display = "none";
     loadQuestion();
 }
 
 // Initialize game
 window.onload = () => {
+    askUserName(); // Prompt user for name
     selectRandomQuestions();
     loadQuestion();
 };
