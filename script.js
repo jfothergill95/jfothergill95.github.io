@@ -143,13 +143,14 @@ function updateScore() {
     document.getElementById("incorrect-score").innerText = incorrectScore;
 }
 
-// Function to show the final score and display options to restart or add a new user
+// Function to show the final score and display options to restart, add a new user, or share results
 function showFinalScore() {
     const questionContainer = document.getElementById("question");
     const optionsContainer = document.getElementById("options");
     const resultContainer = document.getElementById("result");
     const restartButton = document.getElementById("restart-btn");
     const newUserButton = document.getElementById("new-user-btn");
+    const shareButton = document.getElementById("share-btn");
 
     questionContainer.innerHTML = "Game Over! You've reached the maximum of 3 incorrect answers.";
     optionsContainer.style.display = "none";
@@ -157,8 +158,31 @@ function showFinalScore() {
 
     restartButton.style.display = "block";
     newUserButton.style.display = "block";
+    shareButton.style.display = "block";  // Show the Share Results button
     saveToLeaderboard();
     displayLeaderboard();
+}
+
+// Function to share results
+function shareResults() {
+    const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score? Try it here: [link-to-game]`;
+    if (navigator.share) {
+        // Web Share API for supported browsers
+        navigator.share({
+            title: "Knowledge Testing Game",
+            text: message,
+            url: window.location.href  // Share current page URL
+        }).catch((error) => console.error("Error sharing", error));
+    } else {
+        // Fallback for unsupported browsers
+        const shareText = document.createElement("textarea");
+        document.body.appendChild(shareText);
+        shareText.value = message;
+        shareText.select();
+        document.execCommand("copy");
+        document.body.removeChild(shareText);
+        alert("Results copied to clipboard! Share it with your friends.");
+    }
 }
 
 // Function to save score to leaderboard
@@ -199,6 +223,7 @@ function restartGame() {
     document.getElementById("options").style.display = "block";
     document.getElementById("restart-btn").style.display = "none";
     document.getElementById("new-user-btn").style.display = "none";
+    document.getElementById("share-btn").style.display = "none";
     loadQuestion();
 }
 
@@ -214,6 +239,7 @@ function startNewUser() {
     document.getElementById("options").style.display = "block";
     document.getElementById("restart-btn").style.display = "none";
     document.getElementById("new-user-btn").style.display = "none";
+    document.getElementById("share-btn").style.display = "none";
     loadQuestion();
 }
 
