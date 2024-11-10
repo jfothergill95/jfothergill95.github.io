@@ -22,9 +22,9 @@ let currentQuestionIndex = 0;
 let correctScore = 0;
 let incorrectScore = 0;
 
-// Select 10 random unique questions from the question pool
+// Select 10 random unique questions for each round from the question pool
 function selectRandomQuestions() {
-    selectedQuestions = questionPool.sort(() => 0.5 - Math.random()).slice(0, 10);
+    selectedQuestions = [...questionPool].sort(() => 0.5 - Math.random()).slice(0, 10);
     currentQuestionIndex = 0;
 }
 
