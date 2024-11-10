@@ -10,12 +10,7 @@
 <body>
     <header>
         <h1>Test Your Knowledge!</h1>
-        <!-- About button in the top-right corner -->
         <a href="about.html" class="about-btn">About</a>
-        <!-- Google AdSense Ad (header) -->
-        <div class="ad ad-header">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6520856426170407" crossorigin="anonymous"></script>
-        </div>
     </header>
     
     <main>
@@ -26,21 +21,17 @@
             <div id="question" class="question"></div>
             <div id="options" class="options"></div>
             <div id="result" class="result"></div>
-            <button id="restart-btn" onclick="restartGame()" style="display: none;">Restart Game</button>
+            <button id="restart-btn" onclick="restartGame()" style="display: none;">Play Again</button>
+            <button id="new-user-btn" onclick="startNewUser()" style="display: none;">New User</button>
         </div>
-
-        <!-- Google AdSense Ad (between content) -->
-        <div class="ad ad-content">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6520856426170407" crossorigin="anonymous"></script>
+        <div id="leaderboard-container" class="leaderboard-container" style="display: none;">
+            <h2>Leaderboard</h2>
+            <div id="leaderboard"></div>
         </div>
     </main>
     
     <footer>
         <p>&copy; 2024 Knowledge Testing Game</p>
-        <!-- Google AdSense Ad (footer) -->
-        <div class="ad ad-footer">
-            <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6520856426170407" crossorigin="anonymous"></script>
-        </div>
     </footer>
 
     <script src="script.js"></script>
