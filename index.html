@@ -10,7 +10,10 @@
 <body>
     <header>
         <h1>Test Your Knowledge!</h1>
-        <a href="about.html" class="about-btn">About</a>
+        <div class="button-container">
+            <button id="leaderboard-btn" class="leaderboard-btn" onclick="toggleLeaderboard()">Leaderboard</button>
+            <a href="about.html" class="about-btn">About</a>
+        </div>
     </header>
     
     <main>
@@ -24,15 +27,20 @@
             <button id="restart-btn" onclick="restartGame()" style="display: none;">Play Again</button>
             <button id="new-user-btn" onclick="startNewUser()" style="display: none;">New User</button>
         </div>
-        <div id="leaderboard-container" class="leaderboard-container" style="display: none;">
-            <h2>Leaderboard</h2>
-            <div id="leaderboard"></div>
-        </div>
     </main>
     
     <footer>
         <p>&copy; 2024 Knowledge Testing Game</p>
     </footer>
+
+    <!-- Leaderboard Modal -->
+    <div id="leaderboard-container" class="leaderboard-container" style="display: none;">
+        <div class="leaderboard-content">
+            <h2>Leaderboard</h2>
+            <div id="leaderboard"></div>
+            <button onclick="closeLeaderboard()" class="close-btn">Close</button>
+        </div>
+    </div>
 
     <script src="script.js"></script>
 </body>
