@@ -1,0 +1,125 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
+
+body {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f8b195, #f67280, #c06c84, #6c5b7b, #355c7d);
+    background-size: 200% 200%;
+    animation: gradient 10s ease infinite;
+    color: #f7f7f7;
+}
+
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+header {
+    width: 100%;
+    padding: 1em 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    top: 0;
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0.5em 0;
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+footer {
+    width: 100%;
+    padding: 1em 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
+    position: fixed;
+    bottom: 0;
+}
+
+.game-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2em;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    margin-top: 80px; /* Space for the header */
+    margin-bottom: 80px; /* Space for the footer */
+    backdrop-filter: blur(5px);
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.score {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #ffe4b5;
+}
+
+.question {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.options button {
+    display: block;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1em;
+    padding: 12px;
+    margin: 10px auto;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 80%;
+}
+
+.options button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #ffe4b5;
+}
+
+.ad {
+    margin: 20px 0;
+    padding: 10px;
+    font-size: 0.9em;
+    color: #333;
+    background-color: rgba(255, 255, 255, 0.7);
+    border-radius: 5px;
+}
+
+footer p {
+    font-size: 1em;
+    color: #ccc;
+    margin-top: 10px;
+}
