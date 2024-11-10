@@ -139,12 +139,24 @@ main {
     color: #ffe4b5;
 }
 
+/* Leaderboard styling */
+.leaderboard-container {
+    margin-top: 20px;
+    text-align: center;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 1em;
+    width: 80%;
+    max-width: 500px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+}
+
 /* About and Privacy section styling for About page */
 .about-section, .privacy-section {
     max-width: 800px;
     width: 90%;
     padding: 20px;
-    margin: 100px 0;
+    margin: 20px 0;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
@@ -165,6 +177,6 @@ main {
 
 /* Privacy section positioning to push it to the bottom on the About page */
 .privacy-section {
-    margin-top: 0;
-    margin-bottom: 50;
+    margin-top: auto;
+    margin-bottom: 0;
 }
