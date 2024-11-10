@@ -163,26 +163,57 @@ function showFinalScore() {
     displayLeaderboard();
 }
 
-// Function to share results
+// Function to share results with both mobile and desktop compatibility
 function shareResults() {
     const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score? Try it here: [link-to-game]`;
+    const url = window.location.href;  // Replace with the game's URL if different
+
+    // Check if the Web Share API is supported (usually on mobile)
     if (navigator.share) {
-        // Web Share API for supported browsers
         navigator.share({
             title: "Knowledge Testing Game",
             text: message,
-            url: window.location.href  // Share current page URL
-        }).catch((error) => console.error("Error sharing", error));
+            url: url
+        }).catch((error) => {
+            console.error("Error sharing", error);
+            alert("Unable to share via this method. Please try copying the result.");
+        });
     } else {
-        // Fallback for unsupported browsers
-        const shareText = document.createElement("textarea");
-        document.body.appendChild(shareText);
-        shareText.value = message;
-        shareText.select();
-        document.execCommand("copy");
-        document.body.removeChild(shareText);
-        alert("Results copied to clipboard! Share it with your friends.");
+        // For desktop: create sharing options and copy message to clipboard as fallback
+        copyToClipboard(message);
+        alert("Results copied to clipboard! You can paste and share it anywhere.");
+        displayDesktopShareOptions(message, url);
     }
+}
+
+// Helper function to copy text to clipboard
+function copyToClipboard(text) {
+    const shareText = document.createElement("textarea");
+    shareText.value = text;
+    document.body.appendChild(shareText);
+    shareText.select();
+    document.execCommand("copy");
+    document.body.removeChild(shareText);
+}
+
+// Helper function to display social media share links for desktop
+function displayDesktopShareOptions(message, url) {
+    const encodedMessage = encodeURIComponent(message);
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}&url=${encodeURIComponent(url)}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
+    const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent("Knowledge Testing Game")}&summary=${encodedMessage}`;
+
+    // Show the links to the user
+    const shareOptions = `
+        <p>Or share directly:</p>
+        <ul>
+            <li><a href="${twitterUrl}" target="_blank">Share on Twitter</a></li>
+            <li><a href="${facebookUrl}" target="_blank">Share on Facebook</a></li>
+            <li><a href="${linkedinUrl}" target="_blank">Share on LinkedIn</a></li>
+        </ul>
+    `;
+    
+    document.getElementById("result").innerHTML += shareOptions;  // Display options in the results area
 }
 
 // Function to save score to leaderboard
