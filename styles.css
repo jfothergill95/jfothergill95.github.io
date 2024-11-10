@@ -9,9 +9,6 @@
 body {
     display: flex;
     flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     min-height: 100vh;
     margin: 0;
     background: linear-gradient(135deg, #f8b195, #f67280, #c06c84, #6c5b7b, #355c7d);
@@ -33,6 +30,20 @@ header, footer {
     color: white;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header {
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1;
+}
+
+footer {
+    position: fixed;
+    bottom: 0;
+    left: 0;
+    z-index: 1;
 }
 
 header h1 {
@@ -60,6 +71,21 @@ header h1 {
     background-color: #45a049;
 }
 
+/* Main content styling to center game container */
+main {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 100px; /* Adjust space for header */
+    padding-bottom: 80px; /* Adjust space for footer */
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+/* Game container styling */
 .game-container {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -67,8 +93,6 @@ header h1 {
     max-width: 500px;
     width: 90%;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    margin-top: 80px; /* Space for the header */
-    margin-bottom: 80px; /* Space for the footer */
     backdrop-filter: blur(5px);
     animation: fadeIn 2s;
 }
@@ -115,30 +139,17 @@ header h1 {
     color: #ffe4b5;
 }
 
-.ad {
-    margin: 20px 0;
-    padding: 10px;
-    font-size: 0.9em;
-    color: #333;
-    background-color: rgba(255, 255, 255, 0.7);
-    border-radius: 5px;
-}
-
-footer p {
-    font-size: 1em;
-    color: #ccc;
-    margin-top: 10px;
-}
-
-/* Styling for About and Privacy sections */
+/* About and Privacy section styling for About page */
 .about-section, .privacy-section {
     max-width: 800px;
-    margin: 20px auto;
+    width: 90%;
     padding: 20px;
+    margin: 80px 0;
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
     color: #f7f7f7;
+    text-align: center;
 }
 
 .about-section h2, .privacy-section h2 {
@@ -150,4 +161,10 @@ footer p {
 .about-section p, .privacy-section p {
     font-size: 1.1em;
     line-height: 1.6;
+}
+
+/* Privacy section positioning to push it to the bottom on the About page */
+.privacy-section {
+    margin-top: auto;
+    margin-bottom: 0;
 }
