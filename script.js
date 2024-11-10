@@ -165,25 +165,25 @@ function showFinalScore() {
 
 // Function to share results with both mobile and desktop compatibility
 function shareResults() {
-    const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score? Try it here: [link-to-game]`;
-    const url = window.location.href;  // Replace with the actual URL if different
+    const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score?`;
+    const fullMessage = `${message} Try it here: ${window.location.href}`;
 
-    // Attempt to use the Web Share API if available (most common on mobile devices)
+    // Attempt to use the Web Share API for mobile devices
     if (navigator.share) {
         navigator.share({
             title: "Knowledge Testing Game",
-            text: message,
-            url: url
+            text: fullMessage,
+            url: window.location.href
         }).catch((error) => {
             console.error("Error sharing:", error);
             alert("Unable to share via this method. Please try using one of the other sharing options.");
-            displayDesktopShareOptions(message, url);  // Show fallback options if Web Share API fails
+            displayDesktopShareOptions(fullMessage);  // Show fallback options if Web Share API fails
         });
     } else {
-        // For desktop: create sharing options and copy message to clipboard as fallback
-        copyToClipboard(message);
+        // For unsupported browsers, copy the full message to clipboard and show social media links
+        copyToClipboard(fullMessage);
         alert("Results copied to clipboard! You can paste and share it anywhere.");
-        displayDesktopShareOptions(message, url);
+        displayDesktopShareOptions(fullMessage);
     }
 }
 
@@ -198,11 +198,11 @@ function copyToClipboard(text) {
 }
 
 // Helper function to display social media share links for desktop
-function displayDesktopShareOptions(message, url) {
+function displayDesktopShareOptions(message) {
     const encodedMessage = encodeURIComponent(message);
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}&url=${encodeURIComponent(url)}`;
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
-    const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent("Knowledge Testing Game")}&summary=${encodedMessage}`;
+    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
+    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodedMessage}`;
+    const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent("Knowledge Testing Game")}&summary=${encodedMessage}`;
 
     // Append sharing options directly in the results area
     const shareOptionsHtml = `
