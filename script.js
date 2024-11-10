@@ -281,7 +281,7 @@ function showCookieConsentPopup() {
 function acceptCookies() {
     localStorage.setItem('cookieConsent', 'accepted');
     document.getElementById('cookie-consent-popup').style.display = 'none';
-    // Place any code here that requires cookies
+    // Place any additional cookie-based functionality here if needed
 }
 
 // Function to handle declining of cookies
@@ -376,4 +376,29 @@ function goToHomePage() {
 // Function to share results
 function shareResults() {
     alert(`I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score?`);
+}
+
+// Function to open the contact popup
+function openContactPopup() {
+    document.getElementById('contact-popup').style.display = 'flex';
+}
+
+// Function to close the contact popup
+function closeContactPopup() {
+    document.getElementById('contact-popup').style.display = 'none';
+}
+
+// Function to handle contact form submission
+function submitContactForm(event) {
+    event.preventDefault();
+    const name = document.getElementById('name').value;
+    const email = document.getElementById('email').value;
+    const message = document.getElementById('message').value;
+
+    // Display a confirmation message to the user
+    alert(`Message Sent!\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`);
+    
+    // Close the popup and clear the form
+    closeContactPopup();
+    document.getElementById('contact-form').reset();
 }
