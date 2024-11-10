@@ -1,3 +1,4 @@
+/* General styling */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -25,15 +26,13 @@ body {
     100% { background-position: 0% 50%; }
 }
 
-header {
+header, footer {
     width: 100%;
     padding: 1em 0;
     background-color: rgba(0, 0, 0, 0.8);
     color: white;
     text-align: center;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    top: 0;
 }
 
 header h1 {
@@ -43,15 +42,22 @@ header h1 {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-footer {
-    width: 100%;
-    padding: 1em 0;
-    background-color: rgba(0, 0, 0, 0.8);
+/* Styling for About button */
+.about-btn {
+    position: absolute;
+    top: 15px;
+    right: 20px;
+    padding: 10px 20px;
+    background-color: #4CAF50;
     color: white;
-    text-align: center;
-    box-shadow: 0 -4px 8px rgba(0, 0, 0, 0.2);
-    position: fixed;
-    bottom: 0;
+    text-decoration: none;
+    font-size: 1em;
+    border-radius: 5px;
+    transition: background-color 0.3s;
+}
+
+.about-btn:hover {
+    background-color: #45a049;
 }
 
 .game-container {
@@ -122,4 +128,26 @@ footer p {
     font-size: 1em;
     color: #ccc;
     margin-top: 10px;
+}
+
+/* Styling for About and Privacy sections */
+.about-section, .privacy-section {
+    max-width: 800px;
+    margin: 20px auto;
+    padding: 20px;
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    color: #f7f7f7;
+}
+
+.about-section h2, .privacy-section h2 {
+    font-size: 1.8em;
+    margin-bottom: 10px;
+    color: #ffe4b5;
+}
+
+.about-section p, .privacy-section p {
+    font-size: 1.1em;
+    line-height: 1.6;
 }
