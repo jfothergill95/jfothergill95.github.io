@@ -1,5 +1,5 @@
-// Expanded pool of questions
-const questionPool = [
+// Sample questions (expand this pool as needed)
+let questions = [
     { question: "What is the capital of Italy?", options: ["Rome", "Paris", "Berlin", "Madrid"], answer: "Rome" },
     { question: "Which planet is known as the Blue Planet?", options: ["Earth", "Neptune", "Uranus", "Mars"], answer: "Earth" },
     { question: "What is the smallest ocean in the world?", options: ["Indian", "Arctic", "Atlantic", "Pacific"], answer: "Arctic" },
@@ -266,236 +266,118 @@ const questionPool = [
     { question: "Which country is known as the Land of the Rising Sun?", options: ["South Korea", "Japan", "China", "Thailand"], answer: "Japan" },
     { question: "What is the primary ingredient in hummus?", options: ["Chickpeas", "Lentils", "Beans", "Peas"], answer: "Chickpeas" },
     { question: "Which planet is known for its red color?", options: ["Jupiter", "Mars", "Mercury", "Venus"], answer: "Mars" }
+    // Add more questions here
 ];
 
+// Variables to hold game state
 let correctScore = 0;
 let incorrectScore = 0;
-let userName = "";
-let usedQuestions = [];
-let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
+let currentQuestionIndex = 0;
+let leaderboard = [];
 
-// Start game by showing quiz container and prompting for name
+// Function to start the game
 function startGame() {
-    document.getElementById("home-container").style.display = "none";
-    askUserName();
-    document.getElementById("quiz-container").style.display = "flex";
-    loadQuestion();
+    correctScore = 0;
+    incorrectScore = 0;
+    currentQuestionIndex = 0;
+    document.getElementById("correct-score").textContent = correctScore;
+    document.getElementById("incorrect-score").textContent = incorrectScore;
+    document.getElementById("home-container").style.display = 'none';
+    document.getElementById("quiz-container").style.display = 'block';
+    displayQuestion();
 }
 
-// Function to navigate to home page
-function goToHomePage() {
-    document.getElementById("quiz-container").style.display = "none";
-    document.getElementById("home-container").style.display = "flex";
-    resetGame();
-}
+// Function to display the current question
+function displayQuestion() {
+    if (currentQuestionIndex < questions.length) {
+        const questionData = questions[currentQuestionIndex];
+        document.getElementById("question").textContent = questionData.question;
+        const optionsContainer = document.getElementById("options");
+        optionsContainer.innerHTML = ""; // Clear previous options
 
-// Function to prompt for user's name
-function askUserName() {
-    userName = prompt("Please enter your name:");
-    if (!userName) {
-        userName = "Anonymous";
-    }
-}
-
-// Function to load a new unique question
-function loadQuestion() {
-    const questionContainer = document.getElementById("question");
-    const optionsContainer = document.getElementById("options");
-    const resultContainer = document.getElementById("result");
-
-    let randomIndex;
-    let selectedQuestion;
-    do {
-        randomIndex = Math.floor(Math.random() * questionPool.length);
-        selectedQuestion = questionPool[randomIndex];
-    } while (usedQuestions.includes(randomIndex));
-
-    usedQuestions.push(randomIndex);
-
-    questionContainer.innerHTML = selectedQuestion.question;
-    optionsContainer.innerHTML = "";
-    resultContainer.innerHTML = "";
-
-    selectedQuestion.options.forEach(option => {
-        const button = document.createElement("button");
-        button.innerHTML = option;
-        button.onclick = () => checkAnswer(option, selectedQuestion.answer);
-        optionsContainer.appendChild(button);
-    });
-}
-
-// Function to check the answer
-function checkAnswer(selectedOption, correctAnswer) {
-    const resultContainer = document.getElementById("result");
-    if (selectedOption === correctAnswer) {
-        resultContainer.innerHTML = "<p style='color: limegreen;'>Correct!</p>";
-        correctScore++;
-    } else {
-        resultContainer.innerHTML = "<p style='color: tomato;'>Incorrect. The correct answer is " + correctAnswer + ".</p>";
-        incorrectScore++;
-    }
-
-    updateScore();
-
-    if (incorrectScore >= 3) {
-        showFinalScore();
-    } else {
-        setTimeout(loadQuestion, 1000);
-    }
-}
-
-// Function to update the score display
-function updateScore() {
-    document.getElementById("correct-score").innerText = correctScore;
-    document.getElementById("incorrect-score").innerText = incorrectScore;
-}
-
-// Function to show the final score and display options to restart, add a new user, or share results
-function showFinalScore() {
-    const questionContainer = document.getElementById("question");
-    const optionsContainer = document.getElementById("options");
-    const resultContainer = document.getElementById("result");
-    const restartButton = document.getElementById("restart-btn");
-    const newUserButton = document.getElementById("new-user-btn");
-    const shareButton = document.getElementById("share-btn");
-
-    questionContainer.innerHTML = "Game Over! You've reached the maximum of 3 incorrect answers.";
-    optionsContainer.style.display = "none";
-    resultContainer.innerHTML = `<p>Final Score: ${correctScore} Correct</p>`;
-
-    restartButton.style.display = "block";
-    newUserButton.style.display = "block";
-    shareButton.style.display = "block";  // Show the Share Results button
-    saveToLeaderboard();
-    displayLeaderboard();
-}
-
-// Function to share results with both mobile and desktop compatibility
-function shareResults() {
-    const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score?`;
-    const fullMessage = `${message} Try it here: ${window.location.href}`;
-
-    // Check if the Web Share API is available, typically on mobile devices
-    if (navigator.share) {
-        navigator.share({
-            title: "Knowledge Testing Game",
-            text: fullMessage,
-            url: window.location.href
-        }).catch((error) => {
-            console.error("Error sharing:", error);
-            alert("Unable to share via this method. Please try using one of the other sharing options.");
-            displayAlternativeShareOptions(fullMessage);  // Display fallback options if Web Share API fails
+        questionData.options.forEach(option => {
+            const button = document.createElement("button");
+            button.textContent = option;
+            button.classList.add("option-button");
+            button.onclick = () => handleAnswer(option);
+            optionsContainer.appendChild(button);
         });
     } else {
-        // For unsupported browsers, copy the full message to clipboard and show additional options
-        copyToClipboard(fullMessage);
-        alert("Results copied to clipboard! You can paste and share it anywhere.");
-        displayAlternativeShareOptions(fullMessage);
+        endGame();
     }
 }
 
-// Helper function to copy text to clipboard
-function copyToClipboard(text) {
-    const shareText = document.createElement("textarea");
-    shareText.value = text;
-    document.body.appendChild(shareText);
-    shareText.select();
-    document.execCommand("copy");
-    document.body.removeChild(shareText);
+// Function to handle answer selection
+function handleAnswer(selectedOption) {
+    const questionData = questions[currentQuestionIndex];
+    if (selectedOption === questionData.answer) {
+        correctScore++;
+        document.getElementById("correct-score").textContent = correctScore;
+    } else {
+        incorrectScore++;
+        document.getElementById("incorrect-score").textContent = incorrectScore;
+    }
+
+    if (incorrectScore >= 3) {
+        endGame();
+    } else {
+        currentQuestionIndex++;
+        displayQuestion();
+    }
 }
 
-// Helper function to display alternative sharing options for unsupported devices
-function displayAlternativeShareOptions(message) {
-    const encodedMessage = encodeURIComponent(message);
-    const smsUrl = `sms:&body=${encodedMessage}`;
-    const emailUrl = `mailto:?subject=Check out my score!&body=${encodedMessage}`;
-    const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
-    const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodedMessage}`;
-    const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent("Knowledge Testing Game")}&summary=${encodedMessage}`;
-
-    // Append sharing options directly in the results area
-    const shareOptionsHtml = `
-        <p>Or share directly:</p>
-        <ul>
-            <li><a href="${smsUrl}" target="_blank">Share via SMS</a></li>
-            <li><a href="${emailUrl}" target="_blank">Share via Email</a></li>
-            <li><a href="${twitterUrl}" target="_blank">Share on Twitter</a></li>
-            <li><a href="${facebookUrl}" target="_blank">Share on Facebook</a></li>
-            <li><a href="${linkedinUrl}" target="_blank">Share on LinkedIn</a></li>
-        </ul>
-    `;
-    
-    document.getElementById("result").innerHTML += shareOptionsHtml;  // Display options in the results area
+// Function to end the game and show results
+function endGame() {
+    document.getElementById("result").textContent = `Game Over! Your score is ${correctScore}.`;
+    document.getElementById("restart-btn").style.display = "inline-block";
+    document.getElementById("share-btn").style.display = "inline-block";
+    saveToLeaderboard(correctScore);
 }
 
-// Function to save score to leaderboard
-function saveToLeaderboard() {
-    const playerScore = { name: userName, score: correctScore };
-    leaderboard.push(playerScore);
-
-    leaderboard.sort((a, b) => b.score - a.score);
-    leaderboard = leaderboard.slice(0, 5);
-    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+// Function to restart the game
+function restartGame() {
+    document.getElementById("result").textContent = "";
+    document.getElementById("restart-btn").style.display = "none";
+    document.getElementById("share-btn").style.display = "none";
+    startGame();
 }
 
-// Function to display leaderboard
-function displayLeaderboard() {
-    const leaderboardDiv = document.getElementById("leaderboard");
-    leaderboardDiv.innerHTML = leaderboard.map((entry, index) => `<p>${index + 1}. ${entry.name}: ${entry.score} points</p>`).join("");
+// Function to navigate back to home
+function goToHomePage() {
+    document.getElementById("quiz-container").style.display = 'none';
+    document.getElementById("home-container").style.display = 'flex';
 }
 
-// Function to toggle leaderboard visibility
+// Leaderboard functions
 function toggleLeaderboard() {
+    const leaderboardContainer = document.getElementById('leaderboard-container');
+    leaderboardContainer.style.display = leaderboardContainer.style.display === 'none' ? 'block' : 'none';
     displayLeaderboard();
-    document.getElementById("leaderboard-container").style.display = "flex";
 }
 
-// Function to close the leaderboard
 function closeLeaderboard() {
     document.getElementById("leaderboard-container").style.display = "none";
 }
 
-// Function to restart game for the same user
-function restartGame() {
-    correctScore = 0;
-    incorrectScore = 0;
-    usedQuestions = [];
-    document.getElementById("correct-score").innerText = correctScore;
-    document.getElementById("incorrect-score").innerText = incorrectScore;
-
-    document.getElementById("options").style.display = "block";
-    document.getElementById("restart-btn").style.display = "none";
-    document.getElementById("new-user-btn").style.display = "none";
-    document.getElementById("share-btn").style.display = "none";
-    loadQuestion();
-}
-
-// Function to start a new game for a new user
-function startNewUser() {
-    correctScore = 0;
-    incorrectScore = 0;
-    usedQuestions = [];
-    document.getElementById("correct-score").innerText = correctScore;
-    document.getElementById("incorrect-score").innerText = incorrectScore;
-
-    askUserName();
-    document.getElementById("options").style.display = "block";
-    document.getElementById("restart-btn").style.display = "none";
-    document.getElementById("new-user-btn").style.display = "none";
-    document.getElementById("share-btn").style.display = "none";
-    loadQuestion();
-}
-
-// Resets the game state when returning to the home page
-function resetGame() {
-    correctScore = 0;
-    incorrectScore = 0;
-    usedQuestions = [];
-    document.getElementById("correct-score").innerText = correctScore;
-    document.getElementById("incorrect-score").innerText = incorrectScore;
-}
-
-// Initialize leaderboard on page load
-window.onload = () => {
+// Function to save score to leaderboard and display top 5 scores
+function saveToLeaderboard(score) {
+    leaderboard.push(score);
+    leaderboard.sort((a, b) => b - a);
+    if (leaderboard.length > 5) leaderboard.pop(); // Keep top 5 scores
     displayLeaderboard();
+}
+
+function displayLeaderboard() {
+    const leaderboardDiv = document.getElementById("leaderboard");
+    leaderboardDiv.innerHTML = leaderboard.map((score, index) => `<p>${index + 1}. Score: ${score}</p>`).join('');
+}
+
+// Function to share results (could be extended for actual social sharing)
+function shareResults() {
+    alert(`I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score?`);
+}
+
+// Initialize the game when the page loads
+window.onload = () => {
+    goToHomePage();
 };
