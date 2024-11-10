@@ -30,7 +30,7 @@
         </div>
         <button id="start-btn" onclick="startGame()" aria-label="Start Game">Start</button>
     </div>
-    
+
     <main id="quiz-container" style="display: none;">
         <div class="game-container">
             <div class="score">
@@ -40,7 +40,6 @@
             <div id="options" class="options"></div>
             <div id="result" class="result"></div>
             
-            <!-- Button Group for Restart, Share, and Home -->
             <div class="button-group">
                 <button id="restart-btn" onclick="restartGame()" aria-label="Play Again" style="display: none;">Play Again</button>
                 <button id="share-btn" onclick="shareResults()" aria-label="Share Results" style="display: none;">Share Results</button>
@@ -56,14 +55,26 @@
             <a href="terms.html">Terms of Service</a> | 
             <a href="cookies.html">Cookies Policy</a>
         </div>
+        <button class="contact-developer-btn" onclick="openContactPopup()">Contact Developer</button>
     </footer>
 
-    <!-- Cookie Consent Popup -->
-    <div id="cookie-consent-popup" class="cookie-consent-popup">
-        <p>We use cookies to enhance your experience. Do you accept cookies?</p>
-        <div class="cookie-buttons">
-            <button onclick="acceptCookies()">Accept</button>
-            <button onclick="declineCookies()">Decline</button>
+    <!-- Contact Developer Popup -->
+    <div id="contact-popup" class="contact-popup">
+        <div class="popup-content">
+            <span class="close-popup" onclick="closeContactPopup()">&times;</span>
+            <h2>Contact the Developer</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <button type="submit" onclick="submitContactForm(event)">Send Message</button>
+            </form>
         </div>
     </div>
 
