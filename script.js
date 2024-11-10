@@ -168,7 +168,7 @@ function shareResults() {
     const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score?`;
     const fullMessage = `${message} Try it here: ${window.location.href}`;
 
-    // Attempt to use the Web Share API for mobile devices
+    // Check if the Web Share API is available, typically on mobile devices
     if (navigator.share) {
         navigator.share({
             title: "Knowledge Testing Game",
@@ -177,13 +177,13 @@ function shareResults() {
         }).catch((error) => {
             console.error("Error sharing:", error);
             alert("Unable to share via this method. Please try using one of the other sharing options.");
-            displayDesktopShareOptions(fullMessage);  // Show fallback options if Web Share API fails
+            displayAlternativeShareOptions(fullMessage);  // Display fallback options if Web Share API fails
         });
     } else {
-        // For unsupported browsers, copy the full message to clipboard and show social media links
+        // For unsupported browsers, copy the full message to clipboard and show additional options
         copyToClipboard(fullMessage);
         alert("Results copied to clipboard! You can paste and share it anywhere.");
-        displayDesktopShareOptions(fullMessage);
+        displayAlternativeShareOptions(fullMessage);
     }
 }
 
@@ -197,9 +197,11 @@ function copyToClipboard(text) {
     document.body.removeChild(shareText);
 }
 
-// Helper function to display social media share links for desktop
-function displayDesktopShareOptions(message) {
+// Helper function to display alternative sharing options for unsupported devices
+function displayAlternativeShareOptions(message) {
     const encodedMessage = encodeURIComponent(message);
+    const smsUrl = `sms:&body=${encodedMessage}`;
+    const emailUrl = `mailto:?subject=Check out my score!&body=${encodedMessage}`;
     const twitterUrl = `https://twitter.com/intent/tweet?text=${encodedMessage}`;
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(window.location.href)}&quote=${encodedMessage}`;
     const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(window.location.href)}&title=${encodeURIComponent("Knowledge Testing Game")}&summary=${encodedMessage}`;
@@ -208,6 +210,8 @@ function displayDesktopShareOptions(message) {
     const shareOptionsHtml = `
         <p>Or share directly:</p>
         <ul>
+            <li><a href="${smsUrl}" target="_blank">Share via SMS</a></li>
+            <li><a href="${emailUrl}" target="_blank">Share via Email</a></li>
             <li><a href="${twitterUrl}" target="_blank">Share on Twitter</a></li>
             <li><a href="${facebookUrl}" target="_blank">Share on Facebook</a></li>
             <li><a href="${linkedinUrl}" target="_blank">Share on LinkedIn</a></li>
