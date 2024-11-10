@@ -29,7 +29,7 @@ const questionPool = [
     { question: "How many planets are in the solar system?", options: ["7", "8", "9", "10"], answer: "8" },
     { question: "Who wrote 'Pride and Prejudice'?", options: ["Charles Dickens", "George Orwell", "Jane Austen", "Virginia Woolf"], answer: "Jane Austen" },
     { question: "Which element is represented by the symbol 'O'?", options: ["Oxygen", "Gold", "Iron", "Helium"], answer: "Oxygen" },
-    { question: "What is the largest island in the world?", options: ["Greenland", "New Guinea", "Borneo", "Madagascar"], answer: "Greenland" },
+    { question: "What is the largest island in the world?", options: ["Greenland", "New Guinea", "Borneo", "Madagascar"], answer: "Greenland" }
     { question: "What is the capital of Australia?", options: ["Sydney", "Melbourne", "Canberra", "Perth"], answer: "Canberra" },
     { question: "Who invented the telephone?", options: ["Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Albert Einstein"], answer: "Alexander Graham Bell" },
     { question: "Which country hosted the 2016 Summer Olympics?", options: ["China", "Brazil", "United Kingdom", "Japan"], answer: "Brazil" },
