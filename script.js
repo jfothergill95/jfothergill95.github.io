@@ -29,7 +29,7 @@ const questionPool = [
     { question: "How many planets are in the solar system?", options: ["7", "8", "9", "10"], answer: "8" },
     { question: "Who wrote 'Pride and Prejudice'?", options: ["Charles Dickens", "George Orwell", "Jane Austen", "Virginia Woolf"], answer: "Jane Austen" },
     { question: "Which element is represented by the symbol 'O'?", options: ["Oxygen", "Gold", "Iron", "Helium"], answer: "Oxygen" },
-    { question: "What is the largest island in the world?", options: ["Greenland", "New Guinea", "Borneo", "Madagascar"], answer: "Greenland" }
+    { question: "What is the largest island in the world?", options: ["Greenland", "New Guinea", "Borneo", "Madagascar"], answer: "Greenland" },
     { question: "What is the capital of Australia?", options: ["Sydney", "Melbourne", "Canberra", "Perth"], answer: "Canberra" },
     { question: "Who invented the telephone?", options: ["Alexander Graham Bell", "Thomas Edison", "Nikola Tesla", "Albert Einstein"], answer: "Alexander Graham Bell" },
     { question: "Which country hosted the 2016 Summer Olympics?", options: ["China", "Brazil", "United Kingdom", "Japan"], answer: "Brazil" },
@@ -58,7 +58,7 @@ const questionPool = [
     { question: "What is the capital of Russia?", options: ["Moscow", "Saint Petersburg", "Novosibirsk", "Kazan"], answer: "Moscow" },
     { question: "Who is the author of 'To Kill a Mockingbird'?", options: ["Harper Lee", "J.K. Rowling", "Jane Austen", "Mark Twain"], answer: "Harper Lee" },
     { question: "What is the largest land animal?", options: ["Elephant", "Rhinoceros", "Giraffe", "Hippopotamus"], answer: "Elephant" },
-    { question: "What is the square root of 64?", options: ["6", "7", "8", "9"], answer: "8" }
+    { question: "What is the square root of 64?", options: ["6", "7", "8", "9"], answer: "8" },
     { question: "What is the currency of Japan?", options: ["Yuan", "Yen", "Won", "Dollar"], answer: "Yen" },
     { question: "What is the primary ingredient in sushi?", options: ["Bread", "Rice", "Noodles", "Fish"], answer: "Rice" },
     { question: "Who was the first person to walk on the moon?", options: ["Buzz Aldrin", "Michael Collins", "Yuri Gagarin", "Neil Armstrong"], answer: "Neil Armstrong" },
@@ -87,7 +87,7 @@ const questionPool = [
     { question: "What is the tallest building in the world?", options: ["Shanghai Tower", "One World Trade Center", "Burj Khalifa", "Taipei 101"], answer: "Burj Khalifa" },
     { question: "What is the capital of Argentina?", options: ["Lima", "Buenos Aires", "Bogotá", "Santiago"], answer: "Buenos Aires" },
     { question: "Which country is the largest producer of coffee?", options: ["Colombia", "Ethiopia", "Vietnam", "Brazil"], answer: "Brazil" },
-    { question: "Who is known as the 'Father of Computers'?", options: ["Alan Turing", "Charles Babbage", "Ada Lovelace", "Steve Jobs"], answer: "Charles Babbage" }
+    { question: "Who is known as the 'Father of Computers'?", options: ["Alan Turing", "Charles Babbage", "Ada Lovelace", "Steve Jobs"], answer: "Charles Babbage" },
     { question: "What is the capital of South Korea?", options: ["Seoul", "Busan", "Incheon", "Daegu"], answer: "Seoul" },
     { question: "What is the speed of light?", options: ["300,000 km/s", "150,000 km/s", "1,000 km/s", "30,000 km/s"], answer: "300,000 km/s" },
     { question: "What element does 'O' represent on the periodic table?", options: ["Gold", "Oxygen", "Iron", "Osmium"], answer: "Oxygen" },
@@ -117,7 +117,7 @@ const questionPool = [
     { question: "What is the currency of France?", options: ["Euro", "Franc", "Dollar", "Pound"], answer: "Euro" },
     { question: "What is the longest river in the United States?", options: ["Mississippi", "Missouri", "Yukon", "Rio Grande"], answer: "Missouri" },
     { question: "How many teeth does an adult human have?", options: ["28", "30", "32", "34"], answer: "32" },
-    { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], answer: "Mars" }
+    { question: "Which planet is known as the Red Planet?", options: ["Earth", "Mars", "Jupiter", "Venus"], answer: "Mars" },
     { question: "What is the tallest mammal?", options: ["Elephant", "Giraffe", "Lion", "Tiger"], answer: "Giraffe" },
     { question: "Who invented the light bulb?", options: ["Thomas Edison", "Nikola Tesla", "Alexander Graham Bell", "Albert Einstein"], answer: "Thomas Edison" },
     { question: "What is the most spoken language in the world?", options: ["English", "Spanish", "Mandarin", "Hindi"], answer: "Mandarin" },
@@ -147,7 +147,7 @@ const questionPool = [
     { question: "What is the symbol for potassium?", options: ["P", "K", "Pt", "Po"], answer: "K" },
     { question: "Which country is known for the invention of pizza?", options: ["Greece", "France", "Italy", "Spain"], answer: "Italy" },
     { question: "What is the smallest prime number?", options: ["1", "2", "3", "5"], answer: "2" },
-    { question: "What is the capital of New Zealand?", options: ["Auckland", "Christchurch", "Wellington", "Hamilton"], answer: "Wellington" }
+    { question: "What is the capital of New Zealand?", options: ["Auckland", "Christchurch", "Wellington", "Hamilton"], answer: "Wellington" },
     { question: "What is the largest land carnivore?", options: ["Lion", "Tiger", "Polar Bear", "Grizzly Bear"], answer: "Polar Bear" },
     { question: "What is the currency of Mexico?", options: ["Dollar", "Peso", "Real", "Euro"], answer: "Peso" },
     { question: "Who invented the World Wide Web?", options: ["Bill Gates", "Steve Jobs", "Tim Berners-Lee", "Mark Zuckerberg"], answer: "Tim Berners-Lee" },
@@ -176,7 +176,7 @@ const questionPool = [
     { question: "Who painted 'The Last Supper'?", options: ["Leonardo da Vinci", "Raphael", "Michelangelo", "Caravaggio"], answer: "Leonardo da Vinci" },
     { question: "Which planet has the most volcanoes?", options: ["Mars", "Earth", "Venus", "Jupiter"], answer: "Venus" },
     { question: "What is the capital of South Africa?", options: ["Cape Town", "Johannesburg", "Pretoria", "Durban"], answer: "Pretoria" },
-    { question: "What is the most consumed fruit in the world?", options: ["Apple", "Banana", "Orange", "Mango"], answer: "Banana" }
+    { question: "What is the most consumed fruit in the world?", options: ["Apple", "Banana", "Orange", "Mango"], answer: "Banana" },
     { question: "Who discovered America?", options: ["Christopher Columbus", "Marco Polo", "Leif Erikson", "Amerigo Vespucci"], answer: "Christopher Columbus" },
     { question: "What is the capital of Spain?", options: ["Barcelona", "Madrid", "Seville", "Valencia"], answer: "Madrid" },
     { question: "What is the main language spoken in Brazil?", options: ["Spanish", "Portuguese", "French", "English"], answer: "Portuguese" },
@@ -205,7 +205,7 @@ const questionPool = [
     { question: "Who was the lead singer of the band Queen?", options: ["Mick Jagger", "Freddie Mercury", "David Bowie", "Elton John"], answer: "Freddie Mercury" },
     { question: "What element is the most abundant in the universe?", options: ["Helium", "Oxygen", "Hydrogen", "Carbon"], answer: "Hydrogen" },
     { question: "What is the capital of Italy?", options: ["Milan", "Venice", "Florence", "Rome"], answer: "Rome" },
-    { question: "Who invented the telephone?", options: ["Thomas Edison", "Nikola Tesla", "Alexander Graham Bell", "Albert Einstein"], answer: "Alexander Graham Bell" }
+    { question: "Who invented the telephone?", options: ["Thomas Edison", "Nikola Tesla", "Alexander Graham Bell", "Albert Einstein"], answer: "Alexander Graham Bell" },
     { question: "What is the smallest bone in the human body?", options: ["Stapes", "Femur", "Fibula", "Ulna"], answer: "Stapes" },
     { question: "Who discovered penicillin?", options: ["Alexander Fleming", "Marie Curie", "Albert Einstein", "Isaac Newton"], answer: "Alexander Fleming" },
     { question: "What is the longest river in Europe?", options: ["Danube", "Thames", "Volga", "Rhine"], answer: "Volga" },
@@ -235,7 +235,7 @@ const questionPool = [
     { question: "What is the capital of Sweden?", options: ["Helsinki", "Stockholm", "Copenhagen", "Oslo"], answer: "Stockholm" },
     { question: "What element has the atomic number 1?", options: ["Helium", "Oxygen", "Carbon", "Hydrogen"], answer: "Hydrogen" },
     { question: "What is the capital of Thailand?", options: ["Phuket", "Bangkok", "Pattaya", "Chiang Mai"], answer: "Bangkok" },
-    { question: "Who was the first person to reach the South Pole?", options: ["Robert Falcon Scott", "Roald Amundsen", "Ernest Shackleton", "James Cook"], answer: "Roald Amundsen" }
+    { question: "Who was the first person to reach the South Pole?", options: ["Robert Falcon Scott", "Roald Amundsen", "Ernest Shackleton", "James Cook"], answer: "Roald Amundsen" },
     { question: "What is the chemical symbol for water?", options: ["O2", "CO2", "H2O", "NaCl"], answer: "H2O" },
     { question: "Which planet has the longest day?", options: ["Venus", "Earth", "Jupiter", "Mars"], answer: "Venus" },
     { question: "What is the largest landlocked country?", options: ["Kazakhstan", "Mongolia", "Chad", "Bolivia"], answer: "Kazakhstan" },
