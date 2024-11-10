@@ -1,47 +1,242 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knowledge Testing Game</title>
-    <link rel="stylesheet" href="styles.css">
-    <meta name="google-adsense-account" content="ca-pub-6520856426170407">
-</head>
-<body>
-    <header>
-        <h1>Test Your Knowledge!</h1>
-        <div class="button-container">
-            <button id="leaderboard-btn" class="leaderboard-btn" onclick="toggleLeaderboard()">Leaderboard</button>
-            <a href="about.html" class="about-btn">About</a>
-        </div>
-    </header>
-    
-    <main>
-        <div class="game-container">
-            <div class="score">
-                <p>Correct: <span id="correct-score">0</span> | Incorrect: <span id="incorrect-score">0</span></p>
-            </div>
-            <div id="question" class="question"></div>
-            <div id="options" class="options"></div>
-            <div id="result" class="result"></div>
-            <button id="restart-btn" onclick="restartGame()" style="display: none;">Play Again</button>
-            <button id="new-user-btn" onclick="startNewUser()" style="display: none;">New User</button>
-        </div>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 Knowledge Testing Game</p>
-    </footer>
+/* General styling */
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    font-family: 'Arial', sans-serif;
+}
 
-    <!-- Leaderboard Modal -->
-    <div id="leaderboard-container" class="leaderboard-container" style="display: none;">
-        <div class="leaderboard-content">
-            <h2>Leaderboard</h2>
-            <div id="leaderboard"></div>
-            <button onclick="closeLeaderboard()" class="close-btn">Close</button>
-        </div>
-    </div>
+body {
+    display: flex;
+    flex-direction: column;
+    min-height: 100vh;
+    margin: 0;
+    background: linear-gradient(135deg, #f8b195, #f67280, #c06c84, #6c5b7b, #355c7d);
+    background-size: 200% 200%;
+    animation: gradient 10s ease infinite;
+    color: #f7f7f7;
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+@keyframes gradient {
+    0% { background-position: 0% 50%; }
+    50% { background-position: 100% 50%; }
+    100% { background-position: 0% 50%; }
+}
+
+header, footer {
+    width: 100%;
+    padding: 1em 0;
+    background-color: rgba(0, 0, 0, 0.8);
+    color: white;
+    text-align: center;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
+}
+
+header h1 {
+    font-size: 2.5em;
+    margin: 0.5em 0;
+    color: #fff;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+/* Button container styling */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+/* Home page container styling */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+}
+
+.rules {
+    max-width: 500px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.rules h2 {
+    color: #ffe4b5;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.rules p,
+.rules ul {
+    color: #fff;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.rules ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* Start button styling */
+#start-btn {
+    padding: 15px 30px;
+    font-size: 1.5em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#start-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Styling for About, Leaderboard, and Home buttons */
+.about-btn,
+.leaderboard-btn,
+#home-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+.about-btn:hover,
+.leaderboard-btn:hover,
+#home-btn:hover {
+    background-color: #45a049;
+}
+
+/* Main content styling to center game container */
+main {
+    display: flex;
+    flex: 1;
+    align-items: center;
+    justify-content: center;
+    flex-direction: column;
+    padding-top: 100px; /* Adjust space for header */
+    padding-bottom: 80px; /* Adjust space for footer */
+    width: 100%;
+    min-height: 100vh;
+    box-sizing: border-box;
+}
+
+.game-container {
+    background-color: rgba(255, 255, 255, 0.1);
+    border-radius: 10px;
+    padding: 2em;
+    max-width: 500px;
+    width: 90%;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
+    backdrop-filter: blur(5px);
+    animation: fadeIn 2s;
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+
+.score {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #ffe4b5;
+}
+
+.question {
+    font-size: 1.5em;
+    margin-bottom: 20px;
+    color: #fff;
+}
+
+.options button {
+    display: block;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1em;
+    padding: 12px;
+    margin: 10px auto;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+    width: 80%;
+}
+
+.options button:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+.result {
+    margin-top: 20px;
+    font-size: 1.2em;
+    color: #ffe4b5;
+}
+
+/* Leaderboard Modal styling */
+.leaderboard-container {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.leaderboard-content {
+    background: linear-gradient(135deg, #c06c84, #6c5b7b, #355c7d);
+    color: #ffe4b5;
+    padding: 20px;
+    width: 80%;
+    max-width: 500px;
+    border-radius: 10px;
+    text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+.leaderboard-content h2 {
+    font-size: 1.8em;
+    color: #fff;
+    margin-bottom: 15px;
+}
+
+.leaderboard-content p {
+    font-size: 1.2em;
+    margin: 5px 0;
+}
+
+/* Close Leaderboard button */
+.close-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: #45a049;
+}
