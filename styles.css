@@ -32,20 +32,6 @@ header, footer {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2);
 }
 
-header {
-    position: fixed;
-    top: 0;
-    left: 0;
-    z-index: 1;
-}
-
-footer {
-    position: fixed;
-    bottom: 0;
-    left: 0;
-    z-index: 1;
-}
-
 header h1 {
     font-size: 2.5em;
     margin: 0.5em 0;
@@ -53,21 +39,30 @@ header h1 {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Styling for About button */
-.about-btn {
-    position: absolute;
-    top: 15px;
-    right: 20px;
+/* Button container styling */
+.button-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 10px;
+}
+
+/* Styling for About and Leaderboard buttons */
+.about-btn,
+.leaderboard-btn {
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
-    text-decoration: none;
     font-size: 1em;
     border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    text-decoration: none;
     transition: background-color 0.3s;
 }
 
-.about-btn:hover {
+.about-btn:hover,
+.leaderboard-btn:hover {
     background-color: #45a049;
 }
 
@@ -139,44 +134,55 @@ main {
     color: #ffe4b5;
 }
 
-/* Leaderboard styling */
+/* Leaderboard Modal styling */
 .leaderboard-container {
-    margin-top: 20px;
-    text-align: center;
-    background-color: rgba(255, 255, 255, 0.1);
-    border-radius: 10px;
-    padding: 1em;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.8);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.leaderboard-content {
+    background: linear-gradient(135deg, #c06c84, #6c5b7b, #355c7d);
+    color: #ffe4b5;
+    padding: 20px;
     width: 80%;
     max-width: 500px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-}
-
-/* About and Privacy section styling for About page */
-.about-section, .privacy-section {
-    max-width: 800px;
-    width: 90%;
-    padding: 20px;
-    margin: 20px 0;
-    background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    color: #f7f7f7;
     text-align: center;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-.about-section h2, .privacy-section h2 {
+/* Leaderboard text styling */
+.leaderboard-content h2 {
     font-size: 1.8em;
-    margin-bottom: 10px;
-    color: #ffe4b5;
+    color: #fff;
+    margin-bottom: 15px;
 }
 
-.about-section p, .privacy-section p {
-    font-size: 1.1em;
-    line-height: 1.6;
+.leaderboard-content p {
+    font-size: 1.2em;
+    margin: 5px 0;
 }
 
-/* Privacy section positioning to push it to the bottom on the About page */
-.privacy-section {
-    margin-top: auto;
-    margin-bottom: 0;
+/* Close Leaderboard button */
+.close-btn {
+    margin-top: 15px;
+    padding: 8px 16px;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.close-btn:hover {
+    background-color: #45a049;
 }
