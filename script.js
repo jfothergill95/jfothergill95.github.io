@@ -166,17 +166,18 @@ function showFinalScore() {
 // Function to share results with both mobile and desktop compatibility
 function shareResults() {
     const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score? Try it here: [link-to-game]`;
-    const url = window.location.href;  // Replace with the game's URL if different
+    const url = window.location.href;  // Replace with the actual URL if different
 
-    // Check if the Web Share API is supported (usually on mobile)
+    // Attempt to use the Web Share API if available (most common on mobile devices)
     if (navigator.share) {
         navigator.share({
             title: "Knowledge Testing Game",
             text: message,
             url: url
         }).catch((error) => {
-            console.error("Error sharing", error);
-            alert("Unable to share via this method. Please try copying the result.");
+            console.error("Error sharing:", error);
+            alert("Unable to share via this method. Please try using one of the other sharing options.");
+            displayDesktopShareOptions(message, url);  // Show fallback options if Web Share API fails
         });
     } else {
         // For desktop: create sharing options and copy message to clipboard as fallback
@@ -203,8 +204,8 @@ function displayDesktopShareOptions(message, url) {
     const facebookUrl = `https://www.facebook.com/sharer/sharer.php?u=${encodeURIComponent(url)}`;
     const linkedinUrl = `https://www.linkedin.com/shareArticle?mini=true&url=${encodeURIComponent(url)}&title=${encodeURIComponent("Knowledge Testing Game")}&summary=${encodedMessage}`;
 
-    // Show the links to the user
-    const shareOptions = `
+    // Append sharing options directly in the results area
+    const shareOptionsHtml = `
         <p>Or share directly:</p>
         <ul>
             <li><a href="${twitterUrl}" target="_blank">Share on Twitter</a></li>
@@ -213,7 +214,7 @@ function displayDesktopShareOptions(message, url) {
         </ul>
     `;
     
-    document.getElementById("result").innerHTML += shareOptions;  // Display options in the results area
+    document.getElementById("result").innerHTML += shareOptionsHtml;  // Display options in the results area
 }
 
 // Function to save score to leaderboard
