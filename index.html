@@ -6,17 +6,17 @@
     <title>Knowledge Testing Game</title>
     <link rel="stylesheet" href="styles.css">
     <meta name="google-adsense-account" content="ca-pub-6520856426170407">
+    <meta name="description" content="Test your knowledge in this exciting and challenging game!">
 </head>
 <body>
     <header>
         <h1>Test Your Knowledge!</h1>
         <div class="button-container">
-            <button id="leaderboard-btn" class="leaderboard-btn" onclick="toggleLeaderboard()">Leaderboard</button>
+            <button id="leaderboard-btn" class="leaderboard-btn" onclick="toggleLeaderboard()" aria-label="View Leaderboard">Leaderboard</button>
             <a href="about.html" class="about-btn">About</a>
         </div>
     </header>
     
-    <!-- Home Page Container with Rules and Start Button -->
     <div id="home-container" class="home-container">
         <div class="rules">
             <h2>Game Rules</h2>
@@ -29,7 +29,7 @@
             </ul>
             <p>Good luck, and try to achieve the highest score!</p>
         </div>
-        <button id="start-btn" onclick="startGame()">Start</button>
+        <button id="start-btn" onclick="startGame()" aria-label="Start Game">Start</button>
     </div>
 
     <main id="quiz-container" style="display: none;">
@@ -40,15 +40,20 @@
             <div id="question" class="question"></div>
             <div id="options" class="options"></div>
             <div id="result" class="result"></div>
-            <button id="restart-btn" onclick="restartGame()" style="display: none;">Play Again</button>
-            <button id="new-user-btn" onclick="startNewUser()" style="display: none;">New User</button>
-            <button id="share-btn" onclick="shareResults()" style="display: none;">Share Results</button>
-            <button id="home-btn" onclick="goToHomePage()">Home</button>
+            <button id="restart-btn" onclick="restartGame()" style="display: none;" aria-label="Play Again">Play Again</button>
+            <button id="new-user-btn" onclick="startNewUser()" style="display: none;" aria-label="New User">New User</button>
+            <button id="share-btn" onclick="shareResults()" style="display: none;" aria-label="Share Results">Share Results</button>
+            <button id="home-btn" onclick="goToHomePage()" aria-label="Go to Home">Home</button>
         </div>
     </main>
     
     <footer>
         <p>&copy; 2024 Knowledge Testing Game</p>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a> | 
+            <a href="terms.html">Terms of Service</a> | 
+            <a href="cookies.html">Cookies Policy</a>
+        </div>
     </footer>
 
     <!-- Leaderboard Modal -->
@@ -56,7 +61,7 @@
         <div class="leaderboard-content">
             <h2>Leaderboard</h2>
             <div id="leaderboard"></div>
-            <button onclick="closeLeaderboard()" class="close-btn">Close</button>
+            <button onclick="closeLeaderboard()" class="close-btn" aria-label="Close Leaderboard">Close</button>
         </div>
     </div>
 
