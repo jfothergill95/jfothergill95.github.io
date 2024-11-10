@@ -5,9 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Knowledge Testing Game</title>
     <link rel="stylesheet" href="styles.css">
-    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6520856426170407"
-     crossorigin="anonymous"></script>
-    <meta name="description" content="Test your knowledge in this exciting and challenging game!">
+    <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-6520856426170407" crossorigin="anonymous"></script>
 </head>
 <body>
     <header>
@@ -32,7 +30,7 @@
         </div>
         <button id="start-btn" onclick="startGame()" aria-label="Start Game">Start</button>
     </div>
-
+    
     <main id="quiz-container" style="display: none;">
         <div class="game-container">
             <div class="score">
@@ -41,10 +39,13 @@
             <div id="question" class="question"></div>
             <div id="options" class="options"></div>
             <div id="result" class="result"></div>
-            <button id="restart-btn" onclick="restartGame()" style="display: none;" aria-label="Play Again">Play Again</button>
-            <button id="new-user-btn" onclick="startNewUser()" style="display: none;" aria-label="New User">New User</button>
-            <button id="share-btn" onclick="shareResults()" style="display: none;" aria-label="Share Results">Share Results</button>
-            <button id="home-btn" onclick="goToHomePage()" aria-label="Go to Home">Home</button>
+            
+            <!-- Button Group for Restart, Share, and Home -->
+            <div class="button-group">
+                <button id="restart-btn" onclick="restartGame()" aria-label="Play Again" style="display: none;">Play Again</button>
+                <button id="share-btn" onclick="shareResults()" aria-label="Share Results" style="display: none;">Share Results</button>
+                <button id="home-btn" onclick="goToHomePage()" aria-label="Go to Home">Home</button>
+            </div>
         </div>
     </main>
     
@@ -57,12 +58,12 @@
         </div>
     </footer>
 
-    <!-- Leaderboard Modal -->
-    <div id="leaderboard-container" class="leaderboard-container" style="display: none;">
-        <div class="leaderboard-content">
-            <h2>Leaderboard</h2>
-            <div id="leaderboard"></div>
-            <button onclick="closeLeaderboard()" class="close-btn" aria-label="Close Leaderboard">Close</button>
+    <!-- Cookie Consent Popup -->
+    <div id="cookie-consent-popup" class="cookie-consent-popup">
+        <p>We use cookies to enhance your experience. Do you accept cookies?</p>
+        <div class="cookie-buttons">
+            <button onclick="acceptCookies()">Accept</button>
+            <button onclick="declineCookies()">Decline</button>
         </div>
     </div>
 
