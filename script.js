@@ -184,6 +184,8 @@ function startNewUser() {
 
 // Initialize game
 window.onload = () => {
+    // Load leaderboard from localStorage on page load
+    displayLeaderboard();
     askUserName(); // Prompt user for name
     selectRandomQuestions();
     loadQuestion();
