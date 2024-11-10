@@ -269,11 +269,37 @@ let questions = [
     // Add more questions here
 ];
 
+// Function to show the cookie consent popup if choice hasn't been made
+function showCookieConsentPopup() {
+    const cookieConsent = localStorage.getItem('cookieConsent');
+    if (!cookieConsent) {
+        document.getElementById('cookie-consent-popup').style.display = 'block';
+    }
+}
+
+// Function to handle acceptance of cookies
+function acceptCookies() {
+    localStorage.setItem('cookieConsent', 'accepted');
+    document.getElementById('cookie-consent-popup').style.display = 'none';
+    // Place any code here that requires cookies
+}
+
+// Function to handle declining of cookies
+function declineCookies() {
+    localStorage.setItem('cookieConsent', 'declined');
+    document.getElementById('cookie-consent-popup').style.display = 'none';
+    // Disable any cookie-based functionalities here if needed
+}
+
+// Check cookie consent status when the page loads
+window.onload = () => {
+    showCookieConsentPopup();
+};
+
 // Variables to hold game state
 let correctScore = 0;
 let incorrectScore = 0;
 let currentQuestionIndex = 0;
-let leaderboard = [];
 
 // Function to start the game
 function startGame() {
@@ -284,6 +310,8 @@ function startGame() {
     document.getElementById("incorrect-score").textContent = incorrectScore;
     document.getElementById("home-container").style.display = 'none';
     document.getElementById("quiz-container").style.display = 'block';
+    document.getElementById("restart-btn").style.display = "none";
+    document.getElementById("share-btn").style.display = "none";
     displayQuestion();
 }
 
@@ -331,14 +359,11 @@ function endGame() {
     document.getElementById("result").textContent = `Game Over! Your score is ${correctScore}.`;
     document.getElementById("restart-btn").style.display = "inline-block";
     document.getElementById("share-btn").style.display = "inline-block";
-    saveToLeaderboard(correctScore);
 }
 
 // Function to restart the game
 function restartGame() {
     document.getElementById("result").textContent = "";
-    document.getElementById("restart-btn").style.display = "none";
-    document.getElementById("share-btn").style.display = "none";
     startGame();
 }
 
@@ -348,36 +373,7 @@ function goToHomePage() {
     document.getElementById("home-container").style.display = 'flex';
 }
 
-// Leaderboard functions
-function toggleLeaderboard() {
-    const leaderboardContainer = document.getElementById('leaderboard-container');
-    leaderboardContainer.style.display = leaderboardContainer.style.display === 'none' ? 'block' : 'none';
-    displayLeaderboard();
-}
-
-function closeLeaderboard() {
-    document.getElementById("leaderboard-container").style.display = "none";
-}
-
-// Function to save score to leaderboard and display top 5 scores
-function saveToLeaderboard(score) {
-    leaderboard.push(score);
-    leaderboard.sort((a, b) => b - a);
-    if (leaderboard.length > 5) leaderboard.pop(); // Keep top 5 scores
-    displayLeaderboard();
-}
-
-function displayLeaderboard() {
-    const leaderboardDiv = document.getElementById("leaderboard");
-    leaderboardDiv.innerHTML = leaderboard.map((score, index) => `<p>${index + 1}. Score: ${score}</p>`).join('');
-}
-
-// Function to share results (could be extended for actual social sharing)
+// Function to share results
 function shareResults() {
     alert(`I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score?`);
 }
-
-// Initialize the game when the page loads
-window.onload = () => {
-    goToHomePage();
-};
