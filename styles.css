@@ -1,4 +1,4 @@
-/* Reset and General Styling */
+/* General styling */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -219,6 +219,90 @@ header h1 {
     justify-content: center;
     gap: 10px; /* Space between buttons */
     margin-top: 15px; /* Spacing from other elements */
+}
+
+/* Contact Developer Button */
+.contact-developer-btn {
+    padding: 10px 20px;
+    font-size: 1em;
+    background-color: #FFA500; /* Orange background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-top: 15px;
+}
+
+.contact-developer-btn:hover {
+    background-color: #cc8400; /* Darker orange */
+}
+
+/* Contact Popup Styling */
+.contact-popup {
+    display: none; /* Hidden by default */
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(0, 0, 0, 0.8);
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.popup-content {
+    background-color: #fff;
+    color: #333;
+    padding: 20px;
+    border-radius: 10px;
+    max-width: 500px;
+    width: 90%;
+    text-align: center;
+}
+
+.popup-content h2 {
+    margin-bottom: 15px;
+    color: #333;
+}
+
+.popup-content label {
+    display: block;
+    margin: 10px 0 5px;
+}
+
+.popup-content input,
+.popup-content textarea {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    margin-bottom: 15px;
+    resize: vertical;
+}
+
+.popup-content button {
+    padding: 10px 20px;
+    background-color: #FFA500; /* Orange background */
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.popup-content button:hover {
+    background-color: #cc8400; /* Darker orange */
+}
+
+.close-popup {
+    position: absolute;
+    top: 10px;
+    right: 15px;
+    font-size: 1.5em;
+    cursor: pointer;
+    color: #333;
 }
 
 /* Cookie Consent Popup Styling */
