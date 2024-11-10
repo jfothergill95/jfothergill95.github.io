@@ -47,9 +47,63 @@ header h1 {
     margin-top: 10px;
 }
 
-/* Styling for About and Leaderboard buttons */
+/* Home page container styling */
+.home-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    height: 80vh;
+    text-align: center;
+}
+
+.rules {
+    max-width: 500px;
+    background-color: rgba(0, 0, 0, 0.5);
+    padding: 20px;
+    border-radius: 10px;
+    margin-bottom: 20px;
+}
+
+.rules h2 {
+    color: #ffe4b5;
+    font-size: 1.8em;
+    margin-bottom: 10px;
+}
+
+.rules p,
+.rules ul {
+    color: #fff;
+    font-size: 1em;
+    line-height: 1.6;
+}
+
+.rules ul {
+    list-style-type: disc;
+    padding-left: 20px;
+}
+
+/* Start button styling */
+#start-btn {
+    padding: 15px 30px;
+    font-size: 1.5em;
+    background-color: #4CAF50;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s, transform 0.2s;
+}
+
+#start-btn:hover {
+    background-color: #45a049;
+    transform: scale(1.05);
+}
+
+/* Styling for About, Leaderboard, and Home buttons */
 .about-btn,
-.leaderboard-btn {
+.leaderboard-btn,
+#home-btn {
     padding: 10px 20px;
     background-color: #4CAF50;
     color: white;
@@ -59,10 +113,12 @@ header h1 {
     cursor: pointer;
     text-decoration: none;
     transition: background-color 0.3s;
+    margin-top: 15px;
 }
 
 .about-btn:hover,
-.leaderboard-btn:hover {
+.leaderboard-btn:hover,
+#home-btn:hover {
     background-color: #45a049;
 }
 
@@ -80,7 +136,6 @@ main {
     box-sizing: border-box;
 }
 
-/* Game container styling */
 .game-container {
     background-color: rgba(255, 255, 255, 0.1);
     border-radius: 10px;
@@ -159,7 +214,6 @@ main {
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
 }
 
-/* Leaderboard text styling */
 .leaderboard-content h2 {
     font-size: 1.8em;
     color: #fff;
