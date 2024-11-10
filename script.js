@@ -14,7 +14,29 @@ const questionPool = [
     { question: "What is the boiling point of water?", options: ["90°C", "100°C", "120°C", "80°C"], answer: "100°C" },
     { question: "Who discovered penicillin?", options: ["Alexander Fleming", "Marie Curie", "Isaac Newton", "Albert Einstein"], answer: "Alexander Fleming" },
     { question: "What is the largest planet in our solar system?", options: ["Earth", "Mars", "Jupiter", "Saturn"], answer: "Jupiter" },
-    { question: "Which language is primarily spoken in Brazil?", options: ["Spanish", "English", "Portuguese", "French"], answer: "Portuguese" }
+    { question: "Which language is primarily spoken in Brazil?", options: ["Spanish", "English", "Portuguese", "French"], answer: "Portuguese" },
+
+    // Additional 20 questions
+    { question: "In which year did World War II end?", options: ["1945", "1939", "1942", "1946"], answer: "1945" },
+    { question: "Which organ in the human body is primarily responsible for filtering blood?", options: ["Liver", "Heart", "Lungs", "Kidneys"], answer: "Kidneys" },
+    { question: "What is the hardest natural substance on Earth?", options: ["Gold", "Iron", "Diamond", "Silver"], answer: "Diamond" },
+    { question: "Which planet has the most moons?", options: ["Earth", "Mars", "Saturn", "Jupiter"], answer: "Saturn" },
+    { question: "What is the tallest mountain in the world?", options: ["Mount Kilimanjaro", "Mount Everest", "K2", "Mont Blanc"], answer: "Mount Everest" },
+    { question: "In which city is the Colosseum located?", options: ["Athens", "Rome", "Paris", "Istanbul"], answer: "Rome" },
+    { question: "Who developed the theory of relativity?", options: ["Isaac Newton", "Nikola Tesla", "Albert Einstein", "Galileo Galilei"], answer: "Albert Einstein" },
+    { question: "What is the most spoken language in the world?", options: ["Spanish", "English", "Mandarin Chinese", "Hindi"], answer: "Mandarin Chinese" },
+    { question: "Which is the smallest country in the world?", options: ["Monaco", "Vatican City", "San Marino", "Malta"], answer: "Vatican City" },
+    { question: "What is the main ingredient in guacamole?", options: ["Tomato", "Avocado", "Cucumber", "Pepper"], answer: "Avocado" },
+    { question: "Which animal is known as the 'King of the Jungle'?", options: ["Tiger", "Lion", "Elephant", "Cheetah"], answer: "Lion" },
+    { question: "Which element has the highest melting point?", options: ["Iron", "Tungsten", "Carbon", "Gold"], answer: "Tungsten" },
+    { question: "In which country would you find the Eiffel Tower?", options: ["Italy", "France", "Spain", "Germany"], answer: "France" },
+    { question: "What is the smallest unit of life?", options: ["Atom", "Molecule", "Cell", "Organism"], answer: "Cell" },
+    { question: "Which artist is known for the painting 'Starry Night'?", options: ["Pablo Picasso", "Claude Monet", "Vincent van Gogh", "Edvard Munch"], answer: "Vincent van Gogh" },
+    { question: "What is the chemical symbol for gold?", options: ["Gd", "Go", "Au", "Ag"], answer: "Au" },
+    { question: "Which continent is the Sahara Desert located on?", options: ["Asia", "Africa", "Australia", "Europe"], answer: "Africa" },
+    { question: "How many bones are there in the adult human body?", options: ["206", "198", "212", "185"], answer: "206" },
+    { question: "What does 'HTTP' stand for?", options: ["HyperText Transfer Protocol", "Hyperlink Text Transfer Protocol", "HyperText Transfer Path", "Hyperlink Transfer Protocol"], answer: "HyperText Transfer Protocol" },
+    { question: "In which ocean is the Bermuda Triangle located?", options: ["Indian Ocean", "Atlantic Ocean", "Pacific Ocean", "Arctic Ocean"], answer: "Atlantic Ocean" }
 ];
 
 let selectedQuestions = [];
