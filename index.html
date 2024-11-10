@@ -1,63 +1,200 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Knowledge Testing Game</title>
-    <link rel="stylesheet" href="styles.css">
-    <meta name="google-adsense-account" content="ca-pub-6520856426170407">
-</head>
-<body>
-    <header>
-        <h1>Test Your Knowledge!</h1>
-        <div class="button-container">
-            <button id="leaderboard-btn" class="leaderboard-btn" onclick="toggleLeaderboard()">Leaderboard</button>
-            <a href="about.html" class="about-btn">About</a>
-        </div>
-    </header>
-    
-    <!-- Home Page Container with Rules and Start Button -->
-    <div id="home-container" class="home-container">
-        <div class="rules">
-            <h2>Game Rules</h2>
-            <p>Welcome to the Knowledge Testing Game! Here are the rules:</p>
-            <ul>
-                <li>Answer as many questions correctly as you can.</li>
-                <li>The game will end once you answer 3 questions incorrectly.</li>
-                <li>Your score will be recorded on the leaderboard if it's in the top 5.</li>
-            </ul>
-            <p>Good luck, and try to achieve the highest score!</p>
-        </div>
-        <button id="start-btn" onclick="startGame()">Start</button>
-    </div>
+const questionPool = [
+    { question: "What is the capital of France?", options: ["Paris", "London", "Rome", "Berlin"], answer: "Paris" },
+    // Add additional questions here
+];
 
-    <main id="quiz-container" style="display: none;">
-        <div class="game-container">
-            <div class="score">
-                <p>Correct: <span id="correct-score">0</span> | Incorrect: <span id="incorrect-score">0</span></p>
-            </div>
-            <div id="question" class="question"></div>
-            <div id="options" class="options"></div>
-            <div id="result" class="result"></div>
-            <button id="restart-btn" onclick="restartGame()" style="display: none;">Play Again</button>
-            <button id="new-user-btn" onclick="startNewUser()" style="display: none;">New User</button>
-            <button id="home-btn" onclick="goToHomePage()">Home</button>
-        </div>
-    </main>
-    
-    <footer>
-        <p>&copy; 2024 Knowledge Testing Game</p>
-    </footer>
+let correctScore = 0;
+let incorrectScore = 0;
+let userName = "";
+let usedQuestions = [];
+let leaderboard = JSON.parse(localStorage.getItem("leaderboard")) || [];
 
-    <!-- Leaderboard Modal -->
-    <div id="leaderboard-container" class="leaderboard-container" style="display: none;">
-        <div class="leaderboard-content">
-            <h2>Leaderboard</h2>
-            <div id="leaderboard"></div>
-            <button onclick="closeLeaderboard()" class="close-btn">Close</button>
-        </div>
-    </div>
+// Start game by showing quiz container and prompting for name
+function startGame() {
+    document.getElementById("home-container").style.display = "none";
+    askUserName();
+    document.getElementById("quiz-container").style.display = "flex";
+    loadQuestion();
+}
 
-    <script src="script.js"></script>
-</body>
-</html>
+// Function to navigate to home page
+function goToHomePage() {
+    document.getElementById("quiz-container").style.display = "none";
+    document.getElementById("home-container").style.display = "flex";
+    resetGame();
+}
+
+// Function to prompt for user's name
+function askUserName() {
+    userName = prompt("Please enter your name:");
+    if (!userName) {
+        userName = "Anonymous";
+    }
+}
+
+// Function to load a new unique question
+function loadQuestion() {
+    const questionContainer = document.getElementById("question");
+    const optionsContainer = document.getElementById("options");
+    const resultContainer = document.getElementById("result");
+
+    let randomIndex;
+    let selectedQuestion;
+    do {
+        randomIndex = Math.floor(Math.random() * questionPool.length);
+        selectedQuestion = questionPool[randomIndex];
+    } while (usedQuestions.includes(randomIndex));
+
+    usedQuestions.push(randomIndex);
+
+    questionContainer.innerHTML = selectedQuestion.question;
+    optionsContainer.innerHTML = "";
+    resultContainer.innerHTML = "";
+
+    selectedQuestion.options.forEach(option => {
+        const button = document.createElement("button");
+        button.innerHTML = option;
+        button.onclick = () => checkAnswer(option, selectedQuestion.answer);
+        optionsContainer.appendChild(button);
+    });
+}
+
+// Function to check the answer
+function checkAnswer(selectedOption, correctAnswer) {
+    const resultContainer = document.getElementById("result");
+    if (selectedOption === correctAnswer) {
+        resultContainer.innerHTML = "<p style='color: limegreen;'>Correct!</p>";
+        correctScore++;
+    } else {
+        resultContainer.innerHTML = "<p style='color: tomato;'>Incorrect. The correct answer is " + correctAnswer + ".</p>";
+        incorrectScore++;
+    }
+
+    updateScore();
+
+    if (incorrectScore >= 3) {
+        showFinalScore();
+    } else {
+        setTimeout(loadQuestion, 1000);
+    }
+}
+
+// Function to update the score display
+function updateScore() {
+    document.getElementById("correct-score").innerText = correctScore;
+    document.getElementById("incorrect-score").innerText = incorrectScore;
+}
+
+// Function to show the final score and display options to restart, add a new user, or share results
+function showFinalScore() {
+    const questionContainer = document.getElementById("question");
+    const optionsContainer = document.getElementById("options");
+    const resultContainer = document.getElementById("result");
+    const restartButton = document.getElementById("restart-btn");
+    const newUserButton = document.getElementById("new-user-btn");
+    const shareButton = document.getElementById("share-btn");
+
+    questionContainer.innerHTML = "Game Over! You've reached the maximum of 3 incorrect answers.";
+    optionsContainer.style.display = "none";
+    resultContainer.innerHTML = `<p>Final Score: ${correctScore} Correct</p>`;
+
+    restartButton.style.display = "block";
+    newUserButton.style.display = "block";
+    shareButton.style.display = "block";  // Show the Share Results button
+    saveToLeaderboard();
+    displayLeaderboard();
+}
+
+// Function to share results
+function shareResults() {
+    const message = `I scored ${correctScore} points in the Knowledge Testing Game! Can you beat my score? Try it here: [link-to-game]`;
+    if (navigator.share) {
+        // Web Share API for supported browsers
+        navigator.share({
+            title: "Knowledge Testing Game",
+            text: message,
+            url: window.location.href  // Share current page URL
+        }).catch((error) => console.error("Error sharing", error));
+    } else {
+        // Fallback for unsupported browsers
+        const shareText = document.createElement("textarea");
+        document.body.appendChild(shareText);
+        shareText.value = message;
+        shareText.select();
+        document.execCommand("copy");
+        document.body.removeChild(shareText);
+        alert("Results copied to clipboard! Share it with your friends.");
+    }
+}
+
+// Function to save score to leaderboard
+function saveToLeaderboard() {
+    const playerScore = { name: userName, score: correctScore };
+    leaderboard.push(playerScore);
+
+    leaderboard.sort((a, b) => b.score - a.score);
+    leaderboard = leaderboard.slice(0, 5);
+    localStorage.setItem("leaderboard", JSON.stringify(leaderboard));
+}
+
+// Function to display leaderboard
+function displayLeaderboard() {
+    const leaderboardDiv = document.getElementById("leaderboard");
+    leaderboardDiv.innerHTML = leaderboard.map((entry, index) => `<p>${index + 1}. ${entry.name}: ${entry.score} points</p>`).join("");
+}
+
+// Function to toggle leaderboard visibility
+function toggleLeaderboard() {
+    displayLeaderboard();
+    document.getElementById("leaderboard-container").style.display = "flex";
+}
+
+// Function to close the leaderboard
+function closeLeaderboard() {
+    document.getElementById("leaderboard-container").style.display = "none";
+}
+
+// Function to restart game for the same user
+function restartGame() {
+    correctScore = 0;
+    incorrectScore = 0;
+    usedQuestions = [];
+    document.getElementById("correct-score").innerText = correctScore;
+    document.getElementById("incorrect-score").innerText = incorrectScore;
+
+    document.getElementById("options").style.display = "block";
+    document.getElementById("restart-btn").style.display = "none";
+    document.getElementById("new-user-btn").style.display = "none";
+    document.getElementById("share-btn").style.display = "none";
+    loadQuestion();
+}
+
+// Function to start a new game for a new user
+function startNewUser() {
+    correctScore = 0;
+    incorrectScore = 0;
+    usedQuestions = [];
+    document.getElementById("correct-score").innerText = correctScore;
+    document.getElementById("incorrect-score").innerText = incorrectScore;
+
+    askUserName();
+    document.getElementById("options").style.display = "block";
+    document.getElementById("restart-btn").style.display = "none";
+    document.getElementById("new-user-btn").style.display = "none";
+    document.getElementById("share-btn").style.display = "none";
+    loadQuestion();
+}
+
+// Resets the game state when returning to the home page
+function resetGame() {
+    correctScore = 0;
+    incorrectScore = 0;
+    usedQuestions = [];
+    document.getElementById("correct-score").innerText = correctScore;
+    document.getElementById("incorrect-score").innerText = incorrectScore;
+}
+
+// Initialize leaderboard on page load
+window.onload = () => {
+    displayLeaderboard();
+};
