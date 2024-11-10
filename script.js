@@ -144,13 +144,21 @@ function saveToLeaderboard() {
 }
 
 function displayLeaderboard() {
-    const leaderboardContainer = document.getElementById("leaderboard-container");
     const leaderboardDiv = document.getElementById("leaderboard");
-
-    leaderboardContainer.style.display = "block";
     leaderboardDiv.innerHTML = leaderboard.map((entry, index) =>
         `<p>${index + 1}. ${entry.name}: ${entry.score} points</p>`
     ).join("");
+}
+
+// Show leaderboard modal
+function toggleLeaderboard() {
+    displayLeaderboard();
+    document.getElementById("leaderboard-container").style.display = "flex";
+}
+
+// Close leaderboard modal
+function closeLeaderboard() {
+    document.getElementById("leaderboard-container").style.display = "none";
 }
 
 // Restart game for the same user
@@ -184,9 +192,8 @@ function startNewUser() {
 
 // Initialize game
 window.onload = () => {
-    // Load leaderboard from localStorage on page load
     displayLeaderboard();
-    askUserName(); // Prompt user for name
+    askUserName();
     selectRandomQuestions();
     loadQuestion();
 };
