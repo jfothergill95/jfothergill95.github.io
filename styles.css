@@ -1,4 +1,4 @@
-/* General styling */
+/* Reset and General Styling */
 * {
     box-sizing: border-box;
     margin: 0;
@@ -10,7 +10,6 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100vh;
-    margin: 0;
     background: linear-gradient(135deg, #f8b195, #f67280, #c06c84, #6c5b7b, #355c7d);
     background-size: 200% 200%;
     animation: gradient 10s ease infinite;
@@ -23,6 +22,7 @@ body {
     100% { background-position: 0% 50%; }
 }
 
+/* Header and Footer */
 header, footer {
     width: 100%;
     padding: 1em 0;
@@ -39,7 +39,18 @@ header h1 {
     text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
-/* Button container styling */
+.footer-links a {
+    color: #ffe4b5;
+    text-decoration: none;
+    margin: 0 10px;
+    transition: color 0.3s;
+}
+
+.footer-links a:hover {
+    color: #fff;
+}
+
+/* Button Container for Header */
 .button-container {
     display: flex;
     justify-content: center;
@@ -47,7 +58,22 @@ header h1 {
     margin-top: 10px;
 }
 
-/* Home page container styling */
+.about-btn, .leaderboard-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.about-btn:hover, .leaderboard-btn:hover {
+    background-color: #45a049;
+}
+
+/* Home Page Styling */
 .home-container {
     display: flex;
     flex-direction: column;
@@ -83,7 +109,7 @@ header h1 {
     padding-left: 20px;
 }
 
-/* Start button styling */
+/* Start Button Styling */
 #start-btn {
     padding: 15px 30px;
     font-size: 1.5em;
@@ -100,52 +126,30 @@ header h1 {
     transform: scale(1.05);
 }
 
-/* Styling for About, Leaderboard, Home, and Share Results buttons */
-.about-btn,
-.leaderboard-btn,
-#home-btn,
-#share-btn {
-    padding: 10px 20px;
-    background-color: #4CAF50;
-    color: white;
-    font-size: 1em;
-    border-radius: 5px;
-    border: none;
-    cursor: pointer;
-    transition: background-color 0.3s;
-    margin-top: 15px;
-}
-
-.about-btn:hover,
-.leaderboard-btn:hover,
-#home-btn:hover,
-#share-btn:hover {
-    background-color: #45a049;
-}
-
-/* Main content styling to center game container */
-main {
+/* Quiz Container and Game Styling */
+#quiz-container {
     display: flex;
-    flex: 1;
     align-items: center;
     justify-content: center;
-    flex-direction: column;
-    padding-top: 100px;
-    padding-bottom: 80px;
-    width: 100%;
-    min-height: 100vh;
-    box-sizing: border-box;
+    min-height: 80vh;
+    padding: 20px;
 }
 
 .game-container {
-    background-color: rgba(255, 255, 255, 0.1);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
     border-radius: 10px;
-    padding: 2em;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
     max-width: 500px;
     width: 90%;
-    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.4);
-    backdrop-filter: blur(5px);
-    animation: fadeIn 2s;
+    margin: auto;
+    text-align: center;
+    color: #ffe4b5;
+    animation: fadeIn 2s ease-in-out;
 }
 
 @keyframes fadeIn {
@@ -153,20 +157,15 @@ main {
     to { opacity: 1; }
 }
 
-.score {
-    font-size: 1.2em;
-    margin-bottom: 20px;
-    color: #ffe4b5;
-}
-
 .question {
     font-size: 1.5em;
-    margin-bottom: 20px;
+    font-weight: bold;
     color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
 }
 
 .options button {
-    display: block;
     background-color: #4CAF50;
     color: white;
     font-size: 1em;
@@ -175,8 +174,8 @@ main {
     border: none;
     border-radius: 5px;
     cursor: pointer;
-    transition: background-color 0.3s, transform 0.2s;
     width: 80%;
+    transition: background-color 0.3s, transform 0.2s;
 }
 
 .options button:hover {
@@ -184,13 +183,39 @@ main {
     transform: scale(1.05);
 }
 
-.result {
-    margin-top: 20px;
+.score {
     font-size: 1.2em;
+    margin-bottom: 20px;
     color: #ffe4b5;
 }
 
-/* Leaderboard Modal styling */
+.result {
+    font-size: 1.2em;
+    color: #ffe4b5;
+    margin-top: 20px;
+}
+
+#restart-btn,
+#share-btn,
+#home-btn {
+    padding: 10px 20px;
+    background-color: #4CAF50;
+    color: white;
+    font-size: 1em;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    margin-top: 15px;
+    transition: background-color 0.3s;
+}
+
+#restart-btn:hover,
+#share-btn:hover,
+#home-btn:hover {
+    background-color: #45a049;
+}
+
+/* Leaderboard Modal */
 .leaderboard-container {
     position: fixed;
     top: 0;
@@ -226,7 +251,6 @@ main {
     margin: 5px 0;
 }
 
-/* Close Leaderboard button */
 .close-btn {
     margin-top: 15px;
     padding: 8px 16px;
@@ -240,4 +264,50 @@ main {
 
 .close-btn:hover {
     background-color: #45a049;
+}
+
+/* General Section Styling for Policy and About Pages */
+.policy-container {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 80vh;
+    padding: 20px;
+}
+
+.policy-content {
+    max-width: 700px;
+    width: 90%;
+    background-color: rgba(0, 0, 0, 0.7);
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.5);
+    color: #ffe4b5;
+    text-align: center;
+    animation: fadeIn 2s ease-in-out;
+}
+
+.policy-content h2 {
+    font-size: 2em;
+    color: #fff;
+    margin-bottom: 20px;
+    text-shadow: 1px 1px 4px rgba(0, 0, 0, 0.5);
+}
+
+.policy-content p {
+    font-size: 1.2em;
+    line-height: 1.6;
+    margin-bottom: 20px;
+    color: #f7f7f7;
+}
+
+.policy-content a {
+    color: #4CAF50;
+    text-decoration: none;
+    font-weight: bold;
+    transition: color 0.3s;
+}
+
+.policy-content a:hover {
+    color: #45a049;
 }
