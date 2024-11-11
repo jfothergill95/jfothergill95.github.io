@@ -271,9 +271,11 @@ let questions = [
 
 // Function to show the cookie consent popup if choice hasn't been made
 function showCookieConsentPopup() {
+    const cookieConsentPopup = document.getElementById('cookie-consent-popup');
     const cookieConsent = localStorage.getItem('cookieConsent');
-    if (!cookieConsent) {
-        document.getElementById('cookie-consent-popup').style.display = 'block';
+
+    if (!cookieConsent && cookieConsentPopup) {
+        cookieConsentPopup.style.display = 'block';
     }
 }
 
@@ -281,18 +283,16 @@ function showCookieConsentPopup() {
 function acceptCookies() {
     localStorage.setItem('cookieConsent', 'accepted');
     document.getElementById('cookie-consent-popup').style.display = 'none';
-    // Place any additional cookie-based functionality here if needed
 }
 
 // Function to handle declining of cookies
 function declineCookies() {
     localStorage.setItem('cookieConsent', 'declined');
     document.getElementById('cookie-consent-popup').style.display = 'none';
-    // Disable any cookie-based functionalities here if needed
 }
 
 // Check cookie consent status when the page loads
-window.onload = () => {
+window.onload = function() {
     showCookieConsentPopup();
 };
 
