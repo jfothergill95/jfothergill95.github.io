@@ -49,14 +49,15 @@
     </main>
     
     <footer>
-      <p>&copy; 2024 Knowledge Testing Game</p>
-       <div class="footer-links">
-          <a href="privacy.html">Privacy Policy</a> | 
-          <a href="terms.html">Terms of Service</a> | 
-          <a href="cookies.html">Cookies Policy</a> | 
-          <button class="footer-btn" onclick="openContactPopup()">Contact Us</button>
-        </div>
-    </footer>
+    <p>&copy; 2024 Knowledge Testing Game</p>
+    <div class="footer-links">
+        <a href="privacy.html">Privacy Policy</a> | 
+        <a href="terms.html">Terms of Service</a> | 
+        <a href="cookies.html">Cookies Policy</a> | 
+        <a href="#" onclick="openContactPopup()" class="footer-link">Contact Us</a>
+    </div>
+</footer>
+
 
 
 <!-- Contact Us Popup -->
@@ -75,6 +76,13 @@
             <textarea id="message" name="message" required></textarea>
             
             <button type="submit" onclick="submitContactForm(event)">Send Message</button>
+            <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+<script type="text/javascript">
+    (function(){
+        emailjs.init("YT5lkN-tTrXgmyV-0"); // Replace with your actual USER_ID
+    })();
+</script>
+
         </form>
     </div>
 </div>
