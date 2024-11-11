@@ -388,17 +388,27 @@ function closeContactPopup() {
     document.getElementById('contact-popup').style.display = 'none';
 }
 
-// Function to handle contact form submission
 function submitContactForm(event) {
     event.preventDefault();
+    
+    // Get form values
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
 
-    // Display a confirmation message to the user
-    alert(`Message Sent!\n\nName: ${name}\nEmail: ${email}\nMessage: ${message}`);
-    
-    // Close the popup and clear the form
-    closeContactPopup();
-    document.getElementById('contact-form').reset();
+    // Use EmailJS to send the email
+    emailjs.send("service_7j382vd", "template_hh3lqpr", {
+        from_name: name,
+        from_email: email,
+        message: message,
+    })
+    .then(function(response) {
+        alert("Message sent successfully!");
+        closeContactPopup();
+        document.getElementById('contact-form').reset();
+    }, function(error) {
+        alert("Failed to send message. Please try again later.");
+        console.log("EmailJS error:", error);
+    });
 }
+
