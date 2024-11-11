@@ -49,34 +49,37 @@
     </main>
     
     <footer>
-        <p>&copy; 2024 Knowledge Testing Game</p>
-        <div class="footer-links">
-            <a href="privacy.html">Privacy Policy</a> | 
-            <a href="terms.html">Terms of Service</a> | 
-            <a href="cookies.html">Cookies Policy</a>
+      <p>&copy; 2024 Knowledge Testing Game</p>
+       <div class="footer-links">
+          <a href="privacy.html">Privacy Policy</a> | 
+          <a href="terms.html">Terms of Service</a> | 
+          <a href="cookies.html">Cookies Policy</a> | 
+          <button class="footer-btn" onclick="openContactPopup()">Contact Us</button>
         </div>
-        <button class="contact-developer-btn" onclick="openContactPopup()">Contact Developer</button>
     </footer>
 
-    <!-- Contact Developer Popup -->
-    <div id="contact-popup" class="contact-popup">
-        <div class="popup-content">
-            <span class="close-popup" onclick="closeContactPopup()">&times;</span>
-            <h2>Contact the Developer</h2>
-            <form id="contact-form">
-                <label for="name">Name:</label>
-                <input type="text" id="name" name="name" required>
-                
-                <label for="email">Email:</label>
-                <input type="email" id="email" name="email" required>
-                
-                <label for="message">Message:</label>
-                <textarea id="message" name="message" required></textarea>
-                
-                <button type="submit" onclick="submitContactForm(event)">Send Message</button>
-            </form>
-        </div>
+
+<!-- Contact Us Popup -->
+<div id="contact-popup" class="contact-popup">
+    <div class="popup-content">
+        <button class="close-popup" onclick="closeContactPopup()">&times;</button>
+        <h2>Contact Us</h2>
+        <form id="contact-form">
+            <label for="name">Name:</label>
+            <input type="text" id="name" name="name" required>
+            
+            <label for="email">Email:</label>
+            <input type="email" id="email" name="email" required>
+            
+            <label for="message">Message:</label>
+            <textarea id="message" name="message" required></textarea>
+            
+            <button type="submit" onclick="submitContactForm(event)">Send Message</button>
+        </form>
     </div>
+</div>
+
+
 
     <!-- Cookie Consent Popup -->
     <div id="cookie-consent-popup" class="cookie-consent-popup">
