@@ -397,7 +397,7 @@ function submitContactForm(event) {
     const message = document.getElementById('message').value;
 
     // Use EmailJS to send the email
-    emailjs.send("service_7j382vd", "template_hh3lqpr", {
+    emailjs.send("service_7j382vd", "template_cdhsm9w", {
         from_name: name,
         from_email: email,
         message: message,
