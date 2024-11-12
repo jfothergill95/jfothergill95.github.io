@@ -269,6 +269,7 @@ let questions = [
     // Add more questions here
 ];
 
+
 // Firebase database reference
 let database;
 let username = ''; // Store the current user's username
