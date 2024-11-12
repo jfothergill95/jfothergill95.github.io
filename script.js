@@ -273,6 +273,24 @@ let questions = [
 let database;
 let username = ''; // Store the current user's username
 
+function showCookieConsentPopup() {
+    const cookieConsentPopup = document.getElementById('cookie-consent-popup');
+    if (cookieConsentPopup) {
+        cookieConsentPopup.style.display = 'block';
+    }
+}
+
+function acceptCookies() {
+    document.getElementById('cookie-consent-popup').style.display = 'none';
+    // Set a cookie or store the consent in localStorage if needed
+}
+
+function declineCookies() {
+    document.getElementById('cookie-consent-popup').style.display = 'none';
+    // Set a flag to prevent cookies from being set
+}
+
+
 // Function to initialize Firebase and load the leaderboard
 function initializeFirebase() {
     if (firebase.apps.length > 0) {
