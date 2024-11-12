@@ -49,50 +49,108 @@
     </main>
     
     <footer>
-    <p>&copy; 2024 Knowledge Testing Game</p>
-    <div class="footer-links">
-        <a href="privacy.html">Privacy Policy</a> | 
-        <a href="terms.html">Terms of Service</a> | 
-        <a href="cookies.html">Cookies Policy</a> | 
-        <a href="#" onclick="openContactPopup()" class="footer-link">Contact Us</a>
+        <p>&copy; 2024 Knowledge Testing Game</p>
+        <div class="footer-links">
+            <a href="privacy.html">Privacy Policy</a> | 
+            <a href="terms.html">Terms of Service</a> | 
+            <a href="cookies.html">Cookies Policy</a> | 
+            <a href="#" onclick="openContactPopup()" class="footer-link">Contact Us</a>
+        </div>
+    </footer>
+
+    <script type="module">
+        import { initializeApp } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-app.js";
+        import { getDatabase, ref, get, query, orderByChild, limitToLast } from "https://www.gstatic.com/firebasejs/11.0.1/firebase-database.js";
+
+        // Firebase configuration and initialization
+        const firebaseConfig = {
+            apiKey: "AIzaSyD3Iibg_jThCEmhKhuucgK0UwZtv2NKIZg",
+            authDomain: "test-your-knowledge-150e7.firebaseapp.com",
+            databaseURL: "https://test-your-knowledge-150e7-default-rtdb.asia-southeast1.firebasedatabase.app",
+            projectId: "test-your-knowledge-150e7",
+            storageBucket: "test-your-knowledge-150e7.firebasestorage.app",
+            messagingSenderId: "156598201599",
+            appId: "1:156598201599:web:2fb57333a8a95bc6d8b0ca",
+            measurementId: "G-F1F0XSGZYZ"
+        };
+
+        const app = initializeApp(firebaseConfig);
+        const database = getDatabase(app);
+
+        // Function to retrieve and display the leaderboard
+        window.displayLeaderboard = async function() {
+            const leaderboardRef = query(ref(database, 'leaderboard'), orderByChild('score'), limitToLast(5));
+            const leaderboardSnapshot = await get(leaderboardRef);
+            const leaderboardList = document.getElementById('leaderboard');
+            leaderboardList.innerHTML = ''; // Clear previous leaderboard
+
+            if (leaderboardSnapshot.exists()) {
+                const scores = [];
+                leaderboardSnapshot.forEach(childSnapshot => {
+                    scores.push(childSnapshot.val());
+                });
+
+                // Sort scores in descending order and display
+                scores.sort((a, b) => b.score - a.score);
+                scores.forEach((entry, index) => {
+                    const listItem = document.createElement('li');
+                    listItem.textContent = `${index + 1}. ${entry.username} - ${entry.score}`;
+                    leaderboardList.appendChild(listItem);
+                });
+            } else {
+                leaderboardList.innerHTML = '<p>No high scores yet.</p>';
+            }
+        };
+
+        // Toggle leaderboard popup
+        window.toggleLeaderboard = function() {
+            displayLeaderboard();
+            document.getElementById('leaderboard-container').style.display = 'flex';
+        };
+
+        // Close leaderboard popup
+        window.closeLeaderboard = function() {
+            document.getElementById('leaderboard-container').style.display = 'none';
+        };
+    </script>
+
+    <!-- Leaderboard Popup Structure -->
+    <div id="leaderboard-container" class="leaderboard-container" style="display: none;">
+        <div class="leaderboard-content">
+            <h2>Leaderboard</h2>
+            <ul id="leaderboard"></ul>
+            <button onclick="closeLeaderboard()" class="close-btn">Close</button>
+        </div>
     </div>
-</footer>
 
-
-
-<!-- Contact Us Popup -->
-<div id="contact-popup" class="contact-popup">
-    <div class="popup-content">
-        <button class="close-popup" onclick="closeContactPopup()">&times;</button>
-        <h2>Contact Us</h2>
-        <form id="contact-form">
-            <label for="name">Name:</label>
-            <input type="text" id="name" name="name" required>
-            
-            <label for="email">Email:</label>
-            <input type="email" id="email" name="email" required>
-            
-            <label for="message">Message:</label>
-            <textarea id="message" name="message" required></textarea>
-            
-            <button type="submit" onclick="submitContactForm(event)">Send Message</button>
-            <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
-<script type="text/javascript"
-        src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
-</script>
-<script type="text/javascript">
-   (function(){
-      emailjs.init({
-        publicKey: "YT5lkN-tTrXgmyV-0",
-      });
-   })();
-</script>
-
-        </form>
+    <!-- Contact Us Popup -->
+    <div id="contact-popup" class="contact-popup">
+        <div class="popup-content">
+            <button class="close-popup" onclick="closeContactPopup()">&times;</button>
+            <h2>Contact Us</h2>
+            <form id="contact-form">
+                <label for="name">Name:</label>
+                <input type="text" id="name" name="name" required>
+                
+                <label for="email">Email:</label>
+                <input type="email" id="email" name="email" required>
+                
+                <label for="message">Message:</label>
+                <textarea id="message" name="message" required></textarea>
+                
+                <button type="submit" onclick="submitContactForm(event)">Send Message</button>
+                <script type="text/javascript" src="https://cdn.emailjs.com/dist/email.min.js"></script>
+                <script type="text/javascript"
+                    src="https://cdn.jsdelivr.net/npm/@emailjs/browser@4/dist/email.min.js">
+                </script>
+                <script type="text/javascript">
+                    (function(){
+                        emailjs.init("YT5lkN-tTrXgmyV-0");
+                    })();
+                </script>
+            </form>
+        </div>
     </div>
-</div>
-
-
 
     <!-- Cookie Consent Popup -->
     <div id="cookie-consent-popup" class="cookie-consent-popup">
