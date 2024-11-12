@@ -269,40 +269,44 @@ let questions = [
     // Add more questions here
 ];
 
-// Function to show the cookie consent popup if choice hasn't been made
-function showCookieConsentPopup() {
-    const cookieConsentPopup = document.getElementById('cookie-consent-popup');
-    const cookieConsent = localStorage.getItem('cookieConsent');
+// Firebase database reference
+let database;
+let username = ''; // Store the current user's username
 
-    if (!cookieConsent && cookieConsentPopup) {
-        cookieConsentPopup.style.display = 'block';
+// Function to initialize Firebase and load the leaderboard
+function initializeFirebase() {
+    if (firebase.apps.length > 0) {
+        database = firebase.database();
+        getHighScore();
+        testFirebaseConnection(); // Test Firebase connection
+    } else {
+        console.error("Firebase did not initialize correctly.");
     }
 }
 
-// Function to handle acceptance of cookies
-function acceptCookies() {
-    localStorage.setItem('cookieConsent', 'accepted');
-    document.getElementById('cookie-consent-popup').style.display = 'none';
+// Function to test Firebase connection by writing a test message
+function testFirebaseConnection() {
+    if (database) {
+        database.ref('testConnection').set({ message: "Firebase is working!" })
+            .then(() => console.log("Firebase connected successfully."))
+            .catch(error => console.error("Firebase connection error:", error));
+    }
 }
-
-// Function to handle declining of cookies
-function declineCookies() {
-    localStorage.setItem('cookieConsent', 'declined');
-    document.getElementById('cookie-consent-popup').style.display = 'none';
-}
-
-// Check cookie consent status when the page loads
-window.onload = function() {
-    showCookieConsentPopup();
-};
 
 // Variables to hold game state
 let correctScore = 0;
 let incorrectScore = 0;
 let currentQuestionIndex = 0;
 
-// Function to start the game
+// Function to prompt for username and start the game
 function startGame() {
+    username = prompt("Please enter your username:");
+    if (!username) {
+        alert("Username is required to play the game.");
+        return; // Don't start the game if username is empty
+    }
+
+    console.log("Starting game...");  // Debugging line
     correctScore = 0;
     incorrectScore = 0;
     currentQuestionIndex = 0;
@@ -354,11 +358,75 @@ function handleAnswer(selectedOption) {
     }
 }
 
-// Function to end the game and show results
+// Function to end the game and check/update high score
 function endGame() {
     document.getElementById("result").textContent = `Game Over! Your score is ${correctScore}.`;
     document.getElementById("restart-btn").style.display = "inline-block";
     document.getElementById("share-btn").style.display = "inline-block";
+
+    // Save the current user's score to Firebase
+    saveUserScore(username, correctScore);
+}
+
+// Function to save user's score and username to Firebase
+function saveUserScore(username, score) {
+    const userRef = database.ref(`leaderboard/${username}`);
+
+    userRef.once('value').then((snapshot) => {
+        const userData = snapshot.val();
+        const highScore = userData ? userData.score : 0;
+
+        if (score > highScore) {
+            userRef.set({ username: username, score: score });
+            alert(`New high score for ${username}! You scored ${score} points.`);
+        }
+    });
+}
+
+// Function to retrieve and display the leaderboard from Firebase
+function displayLeaderboard() {
+    const leaderboardRef = database.ref('leaderboard');
+    leaderboardRef.orderByChild('score').limitToLast(10).once('value', (snapshot) => {
+        const leaderboardData = snapshot.val();
+        const leaderboardList = document.getElementById('leaderboard');
+        leaderboardList.innerHTML = ''; // Clear previous leaderboard
+
+        if (leaderboardData) {
+            // Convert leaderboardData to an array and sort by score descending
+            const sortedData = Object.values(leaderboardData).sort((a, b) => b.score - a.score);
+            sortedData.forEach((entry, index) => {
+                const listItem = document.createElement('li');
+                listItem.textContent = `${index + 1}. ${entry.username} - ${entry.score}`;
+                leaderboardList.appendChild(listItem);
+            });
+        } else {
+            leaderboardList.innerHTML = '<p>No high scores yet.</p>';
+        }
+    });
+}
+
+// Function to open the leaderboard popup
+function toggleLeaderboard() {
+    displayLeaderboard();
+    document.getElementById('leaderboard-container').style.display = 'flex';
+}
+
+// Function to close the leaderboard popup
+function closeLeaderboard() {
+    document.getElementById('leaderboard-container').style.display = 'none';
+}
+
+// Function to retrieve and display the high score from Firebase
+function getHighScore() {
+    database.ref('leaderboard').orderByChild('score').limitToLast(1).once('value').then((snapshot) => {
+        const highScoreData = snapshot.val();
+        if (highScoreData) {
+            const topUser = Object.values(highScoreData)[0];
+            document.getElementById('high-score').textContent = `${topUser.username} - ${topUser.score}`;
+        } else {
+            document.getElementById('high-score').textContent = 'No high scores yet';
+        }
+    });
 }
 
 // Function to restart the game
@@ -388,15 +456,14 @@ function closeContactPopup() {
     document.getElementById('contact-popup').style.display = 'none';
 }
 
+// Function to handle contact form submission
 function submitContactForm(event) {
     event.preventDefault();
     
-    // Get form values
     const name = document.getElementById('name').value;
     const email = document.getElementById('email').value;
     const message = document.getElementById('message').value;
 
-    // Use EmailJS to send the email
     emailjs.send("service_7j382vd", "template_cdhsm9w", {
         from_name: name,
         from_email: email,
@@ -408,7 +475,12 @@ function submitContactForm(event) {
         document.getElementById('contact-form').reset();
     }, function(error) {
         alert("Failed to send message. Please try again later.");
-        console.log("EmailJS error:", error);
+        console.error("EmailJS error:", error);
     });
 }
 
+// Load Firebase and the high score when the page loads
+window.onload = function() {
+    showCookieConsentPopup();
+    initializeFirebase();  // Initialize Firebase and load leaderboard
+};
