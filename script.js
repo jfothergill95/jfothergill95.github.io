@@ -484,3 +484,19 @@ window.onload = function() {
     showCookieConsentPopup();
     initializeFirebase();  // Initialize Firebase and load leaderboard
 };
+
+function showCookieConsentPopup() {
+    document.getElementById('cookie-consent-popup').style.display = 'block';
+}
+
+// Accept cookies function
+function acceptCookies() {
+    document.getElementById('cookie-consent-popup').style.display = 'none';
+    // You could set a cookie or local storage value to remember this choice
+}
+
+// Decline cookies function
+function declineCookies() {
+    document.getElementById('cookie-consent-popup').style.display = 'none';
+    // You could set a flag to prevent cookies from being set or used
+}
